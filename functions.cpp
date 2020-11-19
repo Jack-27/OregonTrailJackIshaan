@@ -34,3 +34,9 @@ void milestone() {
 void eventCalc() {
     //runs through probabities of events launching 
 }
+void misfortune() {
+    //chooses and executes a misfortune
+}
+void fortune() {
+    //chooses and executes a fortune
+}
