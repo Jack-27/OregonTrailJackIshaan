@@ -54,7 +54,7 @@ class party {
             over = true;
         }
         party() {
-            over = false
+            over = false;
         }
 };
 
