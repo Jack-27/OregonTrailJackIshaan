@@ -14,6 +14,16 @@ void turn() {
     eventCalc();
 
 }
+void init() {
+//initializes game by doing the following steps
+// Load in milestone array
+// Load new party
+// Ask for name of player
+// Ask for names of companians
+// Choose start date
+//all give a little bit of story
+
+}
 
 void statusUpdate() {
     // this is where the status update will be printed
