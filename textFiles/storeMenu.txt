@@ -1,0 +1,6 @@
+=== STORE ===
+1. Buy oxen
+2. Buy food
+3. Buy bullets
+4. Buy medical kits or wagon parts
+5. Pay and finish

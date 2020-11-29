@@ -9,22 +9,44 @@ class store {
         ifstream shopText;
         int timesVisited;
         int bill;
+        int option;
+        bool oxenBought;
     public:
-        int main(int money) {
+        int run(int money) {
             if (timesVisited == 0) {
-                readFile();
+                readFile("store_info.txt");
+                oxenBought == 0;
             }
-            // This is where a menu for the store is going to go, with each options funtions down below, 
-            // The funtions are seperate because I plan to add a travelling shop event that only lets the player buy one thingx.
-        }
-        void readFile() {
-            shopText.open("store_info.txt");
-            string line = "";
-            while( getline(shopText, line)) {
-                cout << line << endl;
+            while (option != 5) {
+                readFile("storeMenu.txt");
+                cin >> option;
+                switch (option)
+                {
+                case 1:
+                    oxen();
+                    break;
+                case 2:
+                    food();
+                    break;
+                case 3:
+                    bullets();
+                    break;
+                case 4:
+                    miscItems();
+                    break;
+                case 5:
+                    if (!oxenBought) {
+                        cout << "You need to buy oxen first." << endl;
+                        option = 0;
+                    }
+                    break;
+                default:
+                    cout << "Invalid option, please hit 1-5." << endl;
+                    break;
+                }
             }
-
         }
+        
         //each of these functions will print what buying them does, let the player buy them, and return a double to be added to the bill
         double oxen() {
 

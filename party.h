@@ -16,7 +16,7 @@ class party {
         
     public:
         storage items;
-        int getMoney() {
+        double getMoney() {
             return money;
         }
         string getDate() {
