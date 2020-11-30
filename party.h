@@ -7,7 +7,6 @@
 class party {
 
     private:
-        people characters[5];
         int miles;
         int day;
         int month;
@@ -15,6 +14,7 @@ class party {
         bool over;
         
     public:
+        people characters[5];
         storage items;
         double getMoney() {
             return money;
@@ -46,6 +46,18 @@ class party {
         }
         bool checkChar(int at) {
             return characters[at].isAlive();
+        }
+        int numCharAlive()
+        {
+            int j = 0;
+            for(int i = 0; i < 5; i++)
+            {
+                if(characters[i].isAlive() == true)
+                {
+                    j++;
+                }
+            }
+            return j;
         }
         bool isOver() {
             return over;
