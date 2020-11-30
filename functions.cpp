@@ -2,6 +2,7 @@
 #include "store.h"
 #include "party.h"
 #include "people.h"
+#include "milestone.h"
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -10,68 +11,80 @@
 #include <vector>
 using namespace std;
 
-void turn() {
+void turn(party main) {
 
-    computeDistanceTraveled();
-    statusUpdate();
+    computeDistanceTraveled(main.getMiles(), main);
+    statusUpdate(main);
     milestone();
-    eventCalc();
+    eventCalc(main);
 
 }
-void init() {
-//initializes game by doing the following steps
-// Load in milestone array
-// Load new party
-// Ask for name of player
-// Ask for names of companians
-// Choose start date
-//all give a little bit of story
+void initStartDate(party main) {
+    
 
 }
+void initParty(party main) {
+    string name;
+    cout << "What is your name? ";
+    cin >> name;
+    main.characters[0] = people(name, true);
+    cout << endl << "Enter your four companions names:" << endl << "1. ";
+    cin >> name;
+    main.characters[1] = people(name, false);
+    cout << endl << "2. ";
+    cin >> name;
+    main.characters[2] = people(name, false);
+    cout << endl << "3. ";
+    cin >> name;
+    main.characters[3] = people(name, false);
+    cout << endl << "4. ";
+    cin >> name;
+    main.characters[4] = people(name, false);
+}
 
-void statusUpdate() {
+void statusUpdate(party main) {
     int choice;
-    cout << party::getDate << endl;    // this is where the status update will be printed
+    cout << main.getDate() << endl;    // this is where the status update will be printed
     cout << endl;
     cout << "TOTAL MILEAGE IS " << computeDistanceTraveled << endl;
     cout << "FOOD       BULLETS       OXEN       WAGON PARTS       MEDKIT       CASH" << endl;
-    cout << storage::getFood() << "          " << storage::getBullets() << "            " << storage::getOxen() << "             " << storage::getWagonParts() << "              " << storage::getMedKits() << "          " << party::getMoney() << endl; 
+    cout << main.items.getFood() << "          " << main.items.getBullets() << "            " << main.items.getOxen() << "             " << main.items.getWagonParts() << "              " << main.items.getMedKits() << "          " << main.getMoney() << endl; 
 }
 
-void computeDistanceTraveled(int distance) {
+void computeDistanceTraveled(int distance, party main) {
     //This will figure out how far the player has traveled based on oxen and rng
     //This will then round down to the next milestone if applicable
     srand(time(0));
     int ran;
     int newdistance;
-    if(storage::getOxen() > 8)
+    if(main.items.getOxen() > 8)
     {
         ran = rand() % 14;
         newdistance = 140 - ran;
     }
-    if((storage::getOxen() > 6) && (storage::getOxen() < 9))
+    if((main.items.getOxen() > 6) && (main.items.getOxen() < 9))
     {
         ran = rand() % 14;
         newdistance = 126 - ran;
     }
-    if((storage::getOxen() > 4) && (storage::getOxen() < 7))
+    if((main.items.getOxen() > 4) && (main.items.getOxen() < 7))
     {
         ran = rand() % 14;
         newdistance = 112 - ran;
     }
-    if((storage::getOxen() > 2) && (storage::getOxen() < 5))
+    if((main.items.getOxen() > 2) && (main.items.getOxen() < 5))
     {
         ran = rand() % 14;
         newdistance = 98 - ran;
     }
-    if((storage::getOxen() > 0) && (storage::getOxen() < 3))
+    if((main.items.getOxen() > 0) && (main.items.getOxen() < 3))
     {
         ran = rand() % 14;
         newdistance = 84 - ran;
     }
     cout << "YOU HAVE TRAVELED " << newdistance + distance << "MILES!" << endl;
 }
-int randomAlive()
+int randomAlive(party main)
 {
     srand(time(0));
     int i = 0;
@@ -79,11 +92,10 @@ int randomAlive()
     while(i < 5)
     {
         ran = rand() % 5;
-        if(party::checkChar(i) = true && i == ran)
+        if(main.checkChar(i) == true && i == ran)
         {
             return i;
         }
-
         i++;
 
     }
@@ -99,31 +111,31 @@ void milestone() {
     //gives the player options based on what kind of milestone (if any) they are at
 
 }
-void eventCalc() {
+void eventCalc(party main) {
     //runs through probabities of events launching 
     srand(time(0));         //chance of raiders
     double ran;
     double prob;
-    prob = pow(party::getMiles() / 100 - 4,2) + 72;
-    prob = prob / pow(party::getMiles() / 100 - 4, 2) + 12;
+    prob = pow(main.getMiles() / 100 - 4,2) + 72;
+    prob = prob / pow(main.getMiles() / 100 - 4, 2) + 12;
     prob = prob - 1;
     prob = prob / 0.10;
     prob =100 - prob;
     ran = rand() % 100;
     if(ran > prob)
     {
-        raiders();
+        raiders(main);
     }
     srand(time(0));
     int ran = rand() % 10;  //chooses and executes a misfortune
     if(ran > 4)
     {
-        misfortune();
+        misfortune(main);
     }
 
 
 }
-void hunting()
+void hunting(party main)
 {
     srand(time(0));
     int ran;
@@ -139,7 +151,7 @@ void hunting()
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A RABBIT! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
-        if(storage::getBullets > 10)
+        if(main.items.getBullets() > 10)
         {
             cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
             srand(time(0));
@@ -156,8 +168,8 @@ void hunting()
             if(choice == ran)
             {
                 cout << "YOU HAVE SUCCESSFULLY KILLED A RABBIT! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 5LBS BUT USED 10 BULLETS!" << endl;
-                storage::addFood(5);
-                storage::addBullets(-10);
+                main.items.addFood(5);
+                main.items.addBullets(-10);
             }
         }
         else
@@ -172,7 +184,7 @@ void hunting()
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A FOX! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
-        if(storage::getBullets > 10)
+        if(main.items.getBullets() > 10)
         {
             cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
             srand(time(0));
@@ -189,8 +201,8 @@ void hunting()
             if(choice == ran)
             {
                 cout << "YOU HAVE SUCCESSFULLY KILLED A FOX! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 10LBS BUT USED 8 BULLETS!" << endl;
-                storage::addFood(10);
-                storage::addBullets(-8);
+                main.items.addFood(10);
+                main.items.addBullets(-8);
             }
         }
         else
@@ -205,7 +217,7 @@ void hunting()
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A DEER! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
-        if(storage::getBullets > 10)
+        if(main.items.getBullets() > 10)
         {
             cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
             srand(time(0));
@@ -222,8 +234,8 @@ void hunting()
             if(choice == ran)
             {
                 cout << "YOU HAVE SUCCESSFULLY KILLED A DEER! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 60LBS BUT USED 5 BULLETS!" << endl;
-                storage::addFood(60);
-                storage::addBullets(-5);
+                main.items.addFood(60);
+                main.items.addBullets(-5);
             }
         }
         else
@@ -238,7 +250,7 @@ void hunting()
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A BEAR! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
-        if(storage::getBullets > 10)
+        if(main.items.getBullets() > 10)
         {
             cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
             srand(time(0));
@@ -255,8 +267,8 @@ void hunting()
             if(choice == ran)
             {
                 cout << "YOU HAVE SUCCESSFULLY KILLED A BEAR! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 200LBS BUT USED 10 BULLETS!" << endl;
-                storage::addFood(200);
-                storage::addBullets(-10);
+                main.items.addFood(200);
+                main.items.addBullets(-10);
             }
         }
         else
@@ -272,7 +284,7 @@ void hunting()
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A MOOSE! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
-        if(storage::getBullets > 10)
+        if(main.items.getBullets() > 10)
         {
             cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
             srand(time(0));
@@ -289,8 +301,8 @@ void hunting()
             if(choice == ran)
             {
                 cout << "YOU HAVE SUCCESSFULLY KILLED A MOOSE! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 500LBS BUT USED 12 BULLETS!" << endl;
-                storage::addFood(500);
-                storage::addBullets(-12);
+                main.items.addFood(500);
+                main.items.addBullets(-12);
             }
         }
         else
@@ -301,7 +313,7 @@ void hunting()
     cout << "HOW WELL WOULD YOU LIKE TO FEED EVERYONE?\nPOORLY(1): 2LBS OF FOOD, PER PERSON.\nMODERATELY(2): 3LBS OF FOOD, PER PERSON. \n WELL(3): 5 LBS OF FOOD, PER PERSON." << endl;
     cin >> choice;
 
-    alive = party::numCharAlive();
+    alive = main.numCharAlive();
     switch(choice)
     {
         case 1:
@@ -316,9 +328,9 @@ void hunting()
             consumed = alive * 5;
         break;
     }
-    storage::addFood(-consumed);
+    main.items.addFood(-consumed);
 
-    if(storage::getFood() > 1000)
+    if(main.items.getFood() > 1000)
     {
         cout << "THE WAGON IS ONLY ABLE TO CARRY 1000 POUNDS...YOU HAD TO LEAVE THE EXTRA MEAT BEHIND!" << endl;
     }
@@ -326,7 +338,7 @@ void hunting()
 
 
 
-void raiders()
+void raiders(party main)
 {
     srand(time(0));
     int ran;
@@ -344,9 +356,9 @@ void raiders()
     {
         case 1:
         cout << "YOU MANAGED TO ESCAPE, BUT IN YOUR HURRY TO FLEE YOU HAVE LOST 1 OX, 10LBS OF FOOD, AND 1 WAGON PART!" << endl;
-        storage::addOxen(-1);
-        storage::addFood(-10);
-        storage::addWagonParts(-1);
+        main.items.addOxen(-1);
+        main.items.addFood(-10);
+        main.items.addWagonParts(-1);
         break;
 
         case 2:
@@ -366,33 +378,33 @@ void raiders()
         if(choice == ran)
         {
             cout << "YOU HAVE GUESS THE CORRECT NUMBER! YOU HAVE SCARED AWAY THE RAIDERS AND AS THEY WERE RUNNING, THEY DROPPED 50LBS OF FOOD AND 50 BULLETS!" << endl;
-            storage::addBullets(50);
-            storage::addBullets(50);
+            main.items.addBullets(50);
+            main.items.addBullets(50);
         }
         if(choice != ran)
         {
             cout << "YOU HAVE LOST THE BATTLE AND MUST FLEE! 50 BULLESTS WERE USED DURING THE BATTLE! AS YOU'RE FLEEING YOU DROP A QUARTER OF YOUR CASH SUPPLY!" << endl;
-            loss = party::getMoney();
+            loss = main.getMoney();
             loss = loss / 4;
-            party::addMoney(-loss);
-            storage::addBullets(-50);
+            main.addMoney(-loss);
+            main.items.addBullets(-50);
         }
         break;
 
         case 3:
         cout << "YOU HAVE CHOSEN TO SURRENDER AND THE RAIDERS TAKE A QUARTER OF YOUR CASH SUPPLY!" << endl;
-        party::addMoney(-loss);
+        main.addMoney(-loss);
         break;
     }
 }
 
 
-void misfortune() {
+void misfortune(party main) {
     srand(time(0));
     int ran;  //chooses and executes a misfortune
     string sick;
-    int i = randomAlive();
-    string name = party::characters[i];
+    int i = randomAlive(main);
+    string name = main.characters[i].getName();
     ran = rand() % 3;
 
     switch(ran)
@@ -433,21 +445,21 @@ void misfortune() {
                 sick = "THE FEVER";
                 break;   
             }
-            if(storage::getMedKits() > 0)
+            if(main.items.getMedKits() > 0)
             {
                 srand(time(0));
                 ran = rand() % 2;
                 if(ran = 0)
                 {
                     cout << name << " DIED OF " << sick << endl;
-                    party::killChar(i);
+                    main.killChar(i);
                 }
                 else
                 {
                     cout << name << "HAS SURVIVED " << sick << endl;
                 }
                 cout << "MEDKIT SUPPLY -1." << endl;
-                storage::addMedKits(-1);
+                main.items.addMedKits(-1);
             }
             else
             {
@@ -465,7 +477,7 @@ void misfortune() {
                     else
                     {
                     cout << name << " DIED OF " << sick << endl;
-                    party::killChar(i);
+                    main.killChar(i);
                     }
                 }
                 else
@@ -475,7 +487,7 @@ void misfortune() {
                     if(ran > 2)
                     {
                         cout << name << " DIED OF " << sick << endl;
-                        party::killChar(i);
+                        main.killChar(i);
                     }
                     else
                     {
@@ -485,27 +497,27 @@ void misfortune() {
                 
                 
             }
-            if(party::characters[0].isAlive() == false) //leader dies game ends
+            if(main.characters[0].isAlive() == false) //leader dies game ends
             {
                 cout << "THE LEADER OF THE PARTY HAS DIED." << endl;
-                party::endGame();
+                main.endGame();
             }
         break;
 
         case 1:
-            storage::addOxen(-1);
+            main.items.addOxen(-1);
 
-            cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE " << storage::getOxen() << " LEFT." << endl;
+            cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE " << main.items.getOxen() << " LEFT." << endl;
 
-            if(storage::getOxen() < 1)
+            if(main.items.getOxen() < 1)
             {
-                cout << "YOU ARE UNABLE TO CONTINUE DUE TO LOOSING ALL YOUR OXEN."
-                party::endGame();
+                cout << "YOU ARE UNABLE TO CONTINUE DUE TO LOOSING ALL YOUR OXEN.";
+                main.endGame();
             }
             else
             {
                 cout << "YOU ARE STILL ABLE TO CONTINUE AND PARTS OF THE OXEN ARE ABLE TO BE HARVEST FOR FOOD." << endl;
-                storage::addFood(100);
+                main.items.addFood(100);
             }
         
         break;
@@ -529,20 +541,21 @@ void misfortune() {
         
         cout << "OH NO! ONE OF YOUR " << part << " IS BROKEN!" << endl;
 
-        if(storage::getWagonParts > 0)
+        if(main.items.getWagonParts() > 0)
         {
             cout << "YOU USE ONE OF YOUR SPARE WAGON PARTS TO FIX THE BREAK." << endl;
-            storage::addWagonParts(-1);
+            main.items.addWagonParts(-1);
         }
         else
         {
             cout << "DUE TO YOUR BROKEN WAGON, YOU ARE UNABLE TO CONTINUE ON YOUR TREK ACROSS THE U.S.!" << endl;
-            party::endGame();
+            main.endGame();
         }
         break;
     }
+}
 
-void fortune() {
+void fortune(party main) {
     srand(time(0));
     int ran = rand() % 5;
 
@@ -555,25 +568,25 @@ void fortune() {
             {
                 cout << "WHILE GOING TO THE BATHROOM YOU NOTICE THE CORNER OF A CHEST STICKING OUT OF THE DIRT." << endl;
                 cout << "YOU DIG IT UP AND FIND $300 AND A BAG OF 25 BULLETS!" << endl;
-                storage::addBullets(10);
-                party::addMoney(100);
+                main.items.addBullets(10);
+                main.addMoney(100);
             }
             if (ran > 3 && ran < 7)
             {
                 cout << "YOU CAME ACROSS AN ABANDONED WAGON WITH 20 POUNDS OF BEANS AND 10 POUNDS OF DRIED FRUIT. " << endl;
-                storage::addFood(30);
+                main.items.addFood(30);
             }
             if(ran > 6 && ran < 9)
             {
                 cout << "YOU MEET A NATIVE AMERICAN TRIBE AND THEY GIFT YOU 1 WAGON PART, 100 POUNDS OF FOOD, AND $300 WORTH OF SUPPLIES THAT YOU WILL TRADE FOR MONEY WHEN PASSING THE NEXT FORT." << endl;
-                storage::addWagonParts(1);
-                storage::addFood(100);
-                party::addMoney(300)
+                main.items.addWagonParts(1);
+                main.items.addFood(100);
+                main.addMoney(300);
             }
             else
             {
                 cout << "YOU SPOT SOMETHING SHINING A FEW HUNDRED YARDS OFF THE TAIL...\nUPON CLOSER INSPECTION YOU REALIZE IT ISN'T FROM OUR WORLD. ITS A ALIEN SPACE CRAFT! \nYOU ENTER THE SPACE CRAFT AND THERE ARE INSTRUCTIONS DETAILING HOW TO FLY THE AIRCRAFT. YOU NO LONGER CARE ABOUT YOUR JOURNY AND FLY WHERE EVER YOU WANT." << endl;
-                party::endGame();
+                main.endGame();
             }
             
         }

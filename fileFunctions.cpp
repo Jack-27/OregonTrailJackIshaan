@@ -1,3 +1,5 @@
+#include <milestone.h>
+#include <vector>
 #include <fstream>
 #include <iostream>
 using namespace std;
@@ -13,3 +15,6 @@ void readFile(string file) {
             }
 
         }
+void readMilestones(string file, vector <milestone> mileVector) {
+
+}

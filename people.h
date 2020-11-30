@@ -22,6 +22,9 @@ class people {
         void kill() {
             alive = false;
         }
+        people() {
+            name = "";
+        }
     private:
         string name;
         bool player;
