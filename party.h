@@ -47,6 +47,18 @@ class party {
         bool checkChar(int at) {
             return characters[at].isAlive();
         }
+        int numCharAlive()
+        {
+            int j = 0;
+            for(int i = 0; i < 5; i++)
+            {
+                if(characters[i].isAlive() == true)
+                {
+                    j++;
+                }
+            }
+            return j;
+        }
         bool isOver() {
             return over;
         }

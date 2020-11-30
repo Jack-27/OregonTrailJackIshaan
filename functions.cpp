@@ -49,22 +49,22 @@ void computeDistanceTraveled(int distance) {
         ran = rand() % 14;
         newdistance = 140 - ran;
     }
-    if(storage::getOxen() > 6) && (storage::getOxen() < 9)
+    if((storage::getOxen() > 6) && (storage::getOxen() < 9))
     {
         ran = rand() % 14;
         newdistance = 126 - ran;
     }
-    if(storage::getOxen() > 4) && (storage::getOxen() < 7)
+    if((storage::getOxen() > 4) && (storage::getOxen() < 7))
     {
         ran = rand() % 14;
         newdistance = 112 - ran;
     }
-    if(storage::getOxen() > 2) && (storage::getOxen() < 5)
+    if((storage::getOxen() > 2) && (storage::getOxen() < 5))
     {
         ran = rand() % 14;
         newdistance = 98 - ran;
     }
-    if(storage::getOxen() > 0) && (storage::getOxen() < 3)
+    if((storage::getOxen() > 0) && (storage::getOxen() < 3))
     {
         ran = rand() % 14;
         newdistance = 84 - ran;
@@ -114,7 +114,7 @@ void eventCalc() {
     {
         raiders();
     }
-
+    srand(time(0));
     int ran = rand() % 10;  //chooses and executes a misfortune
     if(ran > 4)
     {
@@ -123,6 +123,209 @@ void eventCalc() {
 
 
 }
+void hunting()
+{
+    srand(time(0));
+    int ran;
+    int choice;
+    int i = 0;
+    int alive;
+    int consumed;
+    cout << "YOU HAVE DECIDED TO GO HUNTING!" << endl;
+
+    ran = rand() % 2;
+
+    if(ran = 0)
+    {
+        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A RABBIT! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cin >> choice;
+        if(storage::getBullets > 10)
+        {
+            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            srand(time(0));
+            ran = rand() % 10;
+
+            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+
+            while((choice != ran) && (i < 3))
+            {
+                cout << "GUESS #" << i + 1 << "!" << endl;
+                cin >> choice;
+                i++;
+            }
+            if(choice == ran)
+            {
+                cout << "YOU HAVE SUCCESSFULLY KILLED A RABBIT! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 5LBS BUT USED 10 BULLETS!" << endl;
+                storage::addFood(5);
+                storage::addBullets(-10);
+            }
+        }
+        else
+        {
+            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+        }
+    }
+    srand(time(0));
+    ran = rand() % 4;
+
+    if(ran = 0)
+    {
+        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A FOX! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cin >> choice;
+        if(storage::getBullets > 10)
+        {
+            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            srand(time(0));
+            ran = rand() % 10;
+
+            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+
+            while((choice != ran) && (i < 3))
+            {
+                cout << "GUESS #" << i + 1 << "!" << endl;
+                cin >> choice;
+                i++;
+            }
+            if(choice == ran)
+            {
+                cout << "YOU HAVE SUCCESSFULLY KILLED A FOX! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 10LBS BUT USED 8 BULLETS!" << endl;
+                storage::addFood(10);
+                storage::addBullets(-8);
+            }
+        }
+        else
+        {
+            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+        }
+    }
+    srand(time(0));
+    ran = rand() % 100;
+
+    if(ran < 15)
+    {
+        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A DEER! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cin >> choice;
+        if(storage::getBullets > 10)
+        {
+            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            srand(time(0));
+            ran = rand() % 10;
+
+            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+
+            while((choice != ran) && (i < 3))
+            {
+                cout << "GUESS #" << i + 1 << "!" << endl;
+                cin >> choice;
+                i++;
+            }
+            if(choice == ran)
+            {
+                cout << "YOU HAVE SUCCESSFULLY KILLED A DEER! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 60LBS BUT USED 5 BULLETS!" << endl;
+                storage::addFood(60);
+                storage::addBullets(-5);
+            }
+        }
+        else
+        {
+            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+        }
+    }
+    srand(time(0));
+    ran = rand() % 100;
+
+    if(ran < 7)
+    {
+        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A BEAR! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cin >> choice;
+        if(storage::getBullets > 10)
+        {
+            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            srand(time(0));
+            ran = rand() % 10;
+
+            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+
+            while((choice != ran) && (i < 3))
+            {
+                cout << "GUESS #" << i + 1 << "!" << endl;
+                cin >> choice;
+                i++;
+            }
+            if(choice == ran)
+            {
+                cout << "YOU HAVE SUCCESSFULLY KILLED A BEAR! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 200LBS BUT USED 10 BULLETS!" << endl;
+                storage::addFood(200);
+                storage::addBullets(-10);
+            }
+        }
+        else
+        {
+            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+        }
+    }
+        
+    srand(time(0));
+    ran = rand() % 20;
+
+    if(ran = 0)
+    {
+        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A MOOSE! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cin >> choice;
+        if(storage::getBullets > 10)
+        {
+            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            srand(time(0));
+            ran = rand() % 10;
+
+            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+
+            while((choice != ran) && (i < 3))
+            {
+                cout << "GUESS #" << i + 1 << "!" << endl;
+                cin >> choice;
+                i++;
+            }
+            if(choice == ran)
+            {
+                cout << "YOU HAVE SUCCESSFULLY KILLED A MOOSE! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 500LBS BUT USED 12 BULLETS!" << endl;
+                storage::addFood(500);
+                storage::addBullets(-12);
+            }
+        }
+        else
+        {
+            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+        }
+    }
+    cout << "HOW WELL WOULD YOU LIKE TO FEED EVERYONE?\nPOORLY(1): 2LBS OF FOOD, PER PERSON.\nMODERATELY(2): 3LBS OF FOOD, PER PERSON. \n WELL(3): 5 LBS OF FOOD, PER PERSON." << endl;
+    cin >> choice;
+
+    alive = party::numCharAlive();
+    switch(choice)
+    {
+        case 1:
+            consumed = alive * 2;
+        break;
+
+        case 2:
+            consumed = alive * 3;
+        break;
+
+        case 3: 
+            consumed = alive * 5;
+        break;
+    }
+    storage::addFood(-consumed);
+
+    if(storage::getFood() > 1000)
+    {
+        cout << "THE WAGON IS ONLY ABLE TO CARRY 1000 POUNDS...YOU HAD TO LEAVE THE EXTRA MEAT BEHIND!" << endl;
+    }
+}
+
+
+
 void raiders()
 {
     srand(time(0));
@@ -188,92 +391,95 @@ void misfortune() {
     srand(time(0));
     int ran;  //chooses and executes a misfortune
     string sick;
-    int i;
     int i = randomAlive();
-    string name = people::getName(i);
+    string name = party::characters[i];
     ran = rand() % 3;
 
     switch(ran)
     {
         
         case 0:
+            srand(time(0));
             ran = rand() % 6;
             switch(ran)
             {
                 case 0:
-                cout << "OH NO! " << << "HAS THE TYPHOID" << endl;
+                cout << "OH NO! " << name << "HAS THE TYPHOID" << endl;
                 sick = "TYPHOID";
                 break;
 
                 case 1:
-                cout << "OH NO! " << << "HAS THE CHOLERA" << endl;
+                cout << "OH NO! " << name << "HAS THE CHOLERA" << endl;
                 sick = "CHOLERA";
                 break;
 
                 case 2:
-                cout << "OH NO! " << << "HAS THE THE DIARRHEA" << endl;
+                cout << "OH NO! " << name << "HAS THE THE DIARRHEA" << endl;
                 sick = "DIARRHEA";
                 break;
 
                 case 3:
-                cout << "OH NO! " << << "HAS THE THE MEASLES" << endl;
+                cout << "OH NO! " << name << "HAS THE THE MEASLES" << endl;
                 sick = "THE MEASLES";
                 break;
 
                 case 4:
-                cout << "OH NO! " << << "HAS THE THE DYSENTERY" << endl;
+                cout << "OH NO! " << name << "HAS THE THE DYSENTERY" << endl;
                 sick = "DYSENTARY";
                 break;
 
                 case 5:
-                cout << "OH NO! " << << "HAS THE THE FEVER" << endl;
+                cout << "OH NO! " << name << "HAS THE THE FEVER" << endl;
                 sick = "THE FEVER";
                 break;   
             }
             if(storage::getMedKits() > 0)
             {
+                srand(time(0));
                 ran = rand() % 2;
                 if(ran = 0)
                 {
-                    cout << << " DIED OF " << sick << endl;
+                    cout << name << " DIED OF " << sick << endl;
                     party::killChar(i);
                 }
                 else
                 {
-                    cout << << "HAS SURVIVED " << sick << endl;
+                    cout << name << "HAS SURVIVED " << sick << endl;
                 }
                 cout << "MEDKIT SUPPLY -1." << endl;
                 storage::addMedKits(-1);
             }
             else
             {
-                cout << "WOULD YOU LIKE TO REST(1) IN AN ATTEMPT TO HEAL " << << " , OR PRESS ON(2)?" << endl;
+                cout << "WOULD YOU LIKE TO REST(1) IN AN ATTEMPT TO HEAL " << name << " , OR PRESS ON(2)?" << endl;
                 cin >> i;
 
                 if(i == 1)
                 {
+                    srand(time(0));
                     ran = rand() % 10;
                     if(ran > 2)
                     {
-                        cout << << "HAS SURVIVED " << sick << endl;
+                        cout << name << "HAS SURVIVED " << sick << endl;
                     }
                     else
                     {
-                    cout << << " DIED OF " << sick << endl;
+                    cout << name << " DIED OF " << sick << endl;
                     party::killChar(i);
                     }
                 }
                 else
                 {
+                    srand(time(0));
                     ran = rand() % 10;
                     if(ran > 2)
                     {
-                        cout << << " DIED OF " << sick << endl;
+                        cout << name << " DIED OF " << sick << endl;
                         party::killChar(i);
                     }
                     else
                     {
-                    cout << << "HAS SURVIVED " << sick << endl;
+                    cout << name << "HAS SURVIVED " << sick << endl;
                     }
                 }
                 
@@ -281,31 +487,32 @@ void misfortune() {
             }
             if(party::characters[0].isAlive() == false) //leader dies game ends
             {
-                cout << "THE LEADER OF THE PARTY HAS DIED."
+                cout << "THE LEADER OF THE PARTY HAS DIED." << endl;
                 party::endGame();
             }
         break;
 
         case 1:
-        storage::addOxen(-1);
+            storage::addOxen(-1);
 
-        cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE " << storage::getOxen() << " LEFT." << endl;
+            cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE " << storage::getOxen() << " LEFT." << endl;
 
-        if(storage::getOxen() < 1)
-        {
-            cout << "YOU ARE UNABLE TO CONTINUE DUE TO LOOSING ALL YOUR OXEN."
-            party::endGame();
-        }
-        else
-        {
-            cout << "YOU ARE STILL ABLE TO CONTINUE AND PARTS OF THE OXEN ARE ABLE TO BE HARVEST FOR FOOD." << endl;
-            storage::addFood(100);
-        }
+            if(storage::getOxen() < 1)
+            {
+                cout << "YOU ARE UNABLE TO CONTINUE DUE TO LOOSING ALL YOUR OXEN."
+                party::endGame();
+            }
+            else
+            {
+                cout << "YOU ARE STILL ABLE TO CONTINUE AND PARTS OF THE OXEN ARE ABLE TO BE HARVEST FOR FOOD." << endl;
+                storage::addFood(100);
+            }
         
         break;
 
         case 2:
         string part;
+        srand(time(0));
         ran = rand() % 3;
         if(ran = 0)
         {
@@ -335,173 +542,13 @@ void misfortune() {
         break;
     }
 
-    int ran = rand() % 10;  //chooses and executes a misfortune
-    string sick;
-    int i;
-    if(ran < 4)
-    {
-        cout << "No Misfortunes" << endl;
-    }
-    else
-    {
-        ran = rand() % 3;
-    
-        switch(ran)
-        {
-            case 0:
-                if()//need to select random person thats alive
-                {
-
-                } 
-                ran = rand() % 6;
-                switch(ran)
-                {
-                    case 0:
-                    cout << "OH NO! " << << "HAS THE TYPHOID" << endl;
-                    sick = "TYPHOID";
-                    break;
-
-                    case 1:
-                    cout << "OH NO! " << << "HAS THE CHOLERA" << endl;
-                    sick = "CHOLERA";
-                    break;
-
-                    case 2:
-                    cout << "OH NO! " << << "HAS THE THE DIARRHEA" << endl;
-                    sick = "DIARRHEA";
-                    break;
-
-                    case 3:
-                    cout << "OH NO! " << << "HAS THE THE MEASLES" << endl;
-                    sick = "THE MEASLES";
-                    break;
-
-                    case 4:
-                    cout << "OH NO! " << << "HAS THE THE DYSENTERY" << endl;
-                    sick = "DYSENTARY";
-                    break;
-
-                    case 5:
-                    cout << "OH NO! " << << "HAS THE THE FEVER" << endl;
-                    sick = "THE FEVER";
-                    break;   
-                }
-                if(storage::getMedKits() > 0)
-                {
-                    ran = rand() % 2;
-                    if(ran = 0)
-                    {
-                        cout << << " DIED OF " << sick << endl;
-                        party::killChar(x);
-                    }
-                    else
-                    {
-                        cout << << "HAS SURVIVED " << sick << endl;
-                    }
-                    cout << "MEDKIT SUPPLY -1." << endl;
-                    storage::addMedKits(-1);
-                }
-                else
-                {
-                    cout << "WOULD YOU LIKE TO REST(1) IN AN ATTEMPT TO HEAL " << << " , OR PRESS ON(2)?" << endl;
-                    cin >> i;
-
-                    if(i == 1)
-                    {
-                        ran = rand() % 10;
-                        if(ran > 2)
-                        {
-                            cout << << "HAS SURVIVED " << sick << endl;
-                        }
-                        else
-                        {
-                        cout << << " DIED OF " << sick << endl;
-                        party::killChar(x);
-                        }
-                    }
-                    else
-                    {
-                        ran = rand() % 10;
-                        if(ran > 2)
-                        {
-                            cout << << " DIED OF " << sick << endl;
-                            party::killChar(x);
-                        }
-                        else
-                        {
-                        cout << << "HAS SURVIVED " << sick << endl;
-                        }
-                    }
-                    
-                    
-                }
-                if(party::characters[0].isAlive() == false) //leader dies game ends
-                {
-                    cout << "THE LEADER OF THE PARTY HAS DIED."
-                    party::endGame();
-                }
-            break;
-
-            case 1:
-            storage::addOxen(-1);
-
-            cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE " << storage::getOxen() << " LEFT." << endl;
-
-            if(storage::getOxen() < 1)
-            {
-                cout << "YOU ARE UNABLE TO CONTINUE DUE TO LOOSING ALL YOUR OXEN."
-                party::endGame();
-            }
-            else
-            {
-                cout << "YOU ARE STILL ABLE TO CONTINUE AND PARTS OF THE OXEN ARE ABLE TO BE HARVEST FOR FOOD." << endl;
-                storage::addFood(100);
-            }
-            
-            break;
-
-            case 2:
-            string part;
-            ran = rand() % 3;
-            if(ran = 0)
-            {
-                part = "WHEELS";
-            }
-            if(ran = 1)
-            {
-                part = "AXLES";
-            }
-            if(ran = 2)
-            {
-                part = "TONGUES";
-            }
-            
-            cout << "OH NO! ONE OF YOUR " << part << " IS BROKEN!" << endl;
-
-            if(storage::getWagonParts > 0)
-            {
-                cout << "YOU USE ONE OF YOUR SPARE WAGON PARTS TO FIX THE BREAK." << endl;
-                storage::addWagonParts(-1);
-            }
-            else
-            {
-                cout << "DUE TO YOUR BROKEN WAGON, YOU ARE UNABLE TO CONTINUE ON YOUR TREK ACROSS THE U.S.!" << endl;
-                party::endGame();
-            }
-            break;
-        }
-
-    }
-    
-    
-}
-
 void fortune() {
     srand(time(0));
     int ran = rand() % 5;
 
     if(ran == 0)
     {
+        srand(time(0));
         ran = rand() % 10;
         {
             if (ran < 4)
@@ -533,3 +580,4 @@ void fortune() {
     }
 
 }
+
