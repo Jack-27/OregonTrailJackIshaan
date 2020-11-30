@@ -23,6 +23,9 @@ class milestone {
         int getMile() {
             return mile;
         }
+        milestone() {
+            name = "";
+        }
         
 };
 

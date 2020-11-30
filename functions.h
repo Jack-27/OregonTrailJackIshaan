@@ -11,18 +11,66 @@
 #include <vector>
 using namespace std;
 
-void turn(party main) {
 
-    computeDistanceTraveled(main.getMiles(), main);
-    statusUpdate(main);
-    milestone();
-    eventCalc(main);
 
-}
 void initStartDate(party main) {
-    
+    string choice;
+    bool chose = true;
+    cout << "YOU ARE PLANNED TO SET OUT ON 03/28/1847, WOULD YOU LIKE TO CHANGE THIS?" << endl << "Y / N: ";
+    while (chose) {
+        cin >> choice;
+        cout << endl;
+        if (choice == "Y" || choice == "y") {
+            chose = false;
+            bool chose2 = true;
+            string date;
+            int day;
+            int month;
+            while(chose2) {
+                cout << "Enter a new date between 03/01/1847 and 05/01/1847" << endl << "(mm/dd/yyyy): ";
+                cin >> date;
+                if (date.size() == 10 && date[2] == '/' && date[5] == '/') {
+                    month = stoi(date.substr(0, 2), nullptr);
+                    day = stoi(date.substr(3, 2), nullptr);
+                    cout << month << endl << day << endl;
+                    if (month >= 3 && month <= 5) {
+                        if (month == 5) {
+                            if (day == 1) {
+                                chose2 = false;
+                            } else {
+                                cout << "Invalid date." << endl;
+                            }
+
+                        } else if (day >= 1 && day <= main.daysInMonth(month) && month != 5) {
+                            chose2 = false;
+                        } else {
+                            cout << "Invalid date." << endl;
+                        }
+                        
+                    } else {
+                        cout << "Invalid date." << endl;
+                    }
+
+                } else {
+                    cout << "Invalid input" << endl;
+                }
+            }
+            cout << "You are set to leave on " << month << "/" << day << "/1847" << endl;
+            cout << "You must reach the oregon city by 11/30/1847" << endl;
+            main.setDate(day, month);
+        } else if (choice == "N" || choice == "n") {
+            chose = false;
+            main.setDate(28, 3);
+            cout << "You are set to leave on 3/28/1847" << endl;
+            cout << "You must reach the oregon city by 11/30/1847" << endl;
+        } else {
+            cout << "Invalid input please try again." << endl << "Y / N: ";
+        }
+    }
+
 
 }
+
 void initParty(party main) {
     string name;
     cout << "What is your name? ";
@@ -46,7 +94,7 @@ void statusUpdate(party main) {
     int choice;
     cout << main.getDate() << endl;    // this is where the status update will be printed
     cout << endl;
-    cout << "TOTAL MILEAGE IS " << computeDistanceTraveled << endl;
+    cout << "TOTAL MILEAGE IS " << main.getMiles() << endl;
     cout << "FOOD       BULLETS       OXEN       WAGON PARTS       MEDKIT       CASH" << endl;
     cout << main.items.getFood() << "          " << main.items.getBullets() << "            " << main.items.getOxen() << "             " << main.items.getWagonParts() << "              " << main.items.getMedKits() << "          " << main.getMoney() << endl; 
 }
@@ -83,8 +131,9 @@ void computeDistanceTraveled(int distance, party main) {
         newdistance = 84 - ran;
     }
     cout << "YOU HAVE TRAVELED " << newdistance + distance << "MILES!" << endl;
-    party::addMiles(newdistance);
+    main.addMiles(newdistance);
 }
+
 int randomAlive(party main)
 {
     srand(time(0));
@@ -112,30 +161,7 @@ void milestone() {
     //gives the player options based on what kind of milestone (if any) they are at
 
 }
-void eventCalc(party main) {
-    //runs through probabities of events launching 
-    srand(time(0));         //chance of raiders
-    double ran;
-    double prob;
-    prob = pow(main.getMiles() / 100 - 4,2) + 72;
-    prob = prob / pow(main.getMiles() / 100 - 4, 2) + 12;
-    prob = prob - 1;
-    prob = prob / 0.10;
-    prob =100 - prob;
-    ran = rand() % 100;
-    if(ran > prob)
-    {
-        raiders(main);
-    }
-    srand(time(0));
-    int ran = rand() % 10;  //chooses and executes a misfortune
-    if(ran > 4)
-    {
-        misfortune(main);
-    }
 
-
-}
 void hunting(party main)
 {
     srand(time(0));
@@ -148,7 +174,7 @@ void hunting(party main)
 
     ran = rand() % 2;
 
-    if(ran = 0)
+    if(ran == 0)
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A RABBIT! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
@@ -181,7 +207,7 @@ void hunting(party main)
     srand(time(0));
     ran = rand() % 4;
 
-    if(ran = 0)
+    if(ran == 0)
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A FOX! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
@@ -281,7 +307,7 @@ void hunting(party main)
     srand(time(0));
     ran = rand() % 20;
 
-    if(ran = 0)
+    if(ran == 0)
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A MOOSE! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
@@ -336,8 +362,6 @@ void hunting(party main)
         cout << "THE WAGON IS ONLY ABLE TO CARRY 1000 POUNDS...YOU HAD TO LEAVE THE EXTRA MEAT BEHIND!" << endl;
     }
 }
-
-
 
 void raiders(party main)
 {
@@ -399,7 +423,6 @@ void raiders(party main)
     }
 }
 
-
 void misfortune(party main) {
     srand(time(0));
     int ran;  //chooses and executes a misfortune
@@ -450,7 +473,7 @@ void misfortune(party main) {
             {
                 srand(time(0));
                 ran = rand() % 2;
-                if(ran = 0)
+                if(ran == 0)
                 {
                     cout << name << " DIED OF " << sick << endl;
                     main.killChar(i);
@@ -527,15 +550,15 @@ void misfortune(party main) {
         string part;
         srand(time(0));
         ran = rand() % 3;
-        if(ran = 0)
+        if(ran == 0)
         {
             part = "WHEELS";
         }
-        if(ran = 1)
+        if(ran == 1)
         {
             part = "AXLES";
         }
-        if(ran = 2)
+        if(ran == 2)
         {
             part = "TONGUES";
         }
@@ -595,3 +618,35 @@ void fortune(party main) {
 
 }
 
+void eventCalc(party main) {
+    //runs through probabities of events launching 
+    srand(time(0));         //chance of raiders
+    double ran;
+    double prob;
+    prob = pow(main.getMiles() / 100 - 4,2) + 72;
+    prob = prob / pow(main.getMiles() / 100 - 4, 2) + 12;
+    prob = prob - 1;
+    prob = prob / 0.10;
+    prob = 100 - prob;
+    ran = rand() % 100;
+    if(ran > prob)
+    {
+        raiders(main);
+    }
+    srand(time(0));
+    ran = rand() % 10;  //chooses and executes a misfortune
+    if(ran > 4)
+    {
+        misfortune(main);
+    }
+
+
+}
+void turn(party main) {
+
+    computeDistanceTraveled(main.getMiles(), main);
+    statusUpdate(main);
+    milestone();
+    eventCalc(main);
+
+}

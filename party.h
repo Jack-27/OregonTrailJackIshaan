@@ -67,7 +67,59 @@ class party {
         }
         party() {
             over = false;
+            money = 1600;
+        }
+        void addDays(int days) {
+            for(int i = 0; i < days; i++) {
+                if (day == daysInMonth(month)) {
+                    month++;
+                } else {
+                    day++;
+                }
+            }
+        }
+
+        int daysInMonth( int month) {
+            int year = 1947;
+            if (month > 0 && month < 13) {
+                if (month != 2) {
+                    switch (month % 2)
+                    {
+                    case 1:
+                        if (month < 7) {
+                            return 31;
+                        } else {
+                            return 30;
+                        }
+                        break;
+                    case 0:
+                        if (month > 7) {
+                            return 31;
+                        } else {
+                            return 30;
+                        }
+                    default:
+                        break;
+                    }
+                } else {
+                    if (year > 1582) {
+                        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+                            return 29;
+                        } else {
+                            return 28;
+                        }
+                    } else {
+                        if (year % 4 == 0) {
+                            return 29;
+                        } else {
+                            return 28;
+                        }
+                    }
+                }
+            } 
+
         }
 };
+
 
 #endif

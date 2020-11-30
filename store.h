@@ -1,3 +1,4 @@
+#include "party.h"
 #include <fstream>
 #include <iostream>
 #ifndef STORE_H
@@ -13,11 +14,20 @@ class store {
         bool oxenBought;
         
     public:
+        void readFile(string file) {
+                fstream text;
+                text.open("textFiles/" + file);
+                string line = "";
+                while( getline(text, line)) {
+                    cout << line << endl;
+                }
+            }  
         int run(double money, party main) {
             bill = 0;
+            int tempNum;
             if (timesVisited == 0) {
                 readFile("store_info.txt");
-                oxenBought == 0;
+                oxenBought = false;
             }
             while (option != 5) {
                 readFile("storeMenu.txt");
@@ -25,7 +35,7 @@ class store {
                 switch (option)
                 {
                 case 1:
-                    int tempNum = oxen();
+                    tempNum = oxen();
                     if (bill + tempNum > money) {
                         cout << "Not enough money to buy this item." << endl;
 
@@ -37,7 +47,7 @@ class store {
                     }
                     break;
                 case 2:
-                    int tempNum = food();
+                    tempNum = food();
                     if (bill + tempNum > money) {
                         cout << "Not enough money to buy this item." << endl;
 
@@ -48,7 +58,7 @@ class store {
                     }
                     break;
                 case 3:
-                    int tempNum = bullets();
+                    tempNum = bullets();
                     if (bill + tempNum > money) {
                         cout << "Not enough money to buy this item." << endl;
 
@@ -73,6 +83,8 @@ class store {
                 }
                 
             }
+              
+            
             main.addMoney(bill * -1.0);
             cout << "Your remaining money is " << main.getMoney() << endl;
             timesVisited++;

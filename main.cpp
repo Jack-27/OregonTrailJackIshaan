@@ -1,8 +1,10 @@
 #include "storage.h"
 #include "store.h"
+#include "milestone.h"
 #include "party.h"
 #include "people.h"
-#include "milestone.h"
+#include "functions.h"
+#include "fileFunctions.h"
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -11,22 +13,21 @@
 #include <vector>
 using namespace std;
 
-
-int main() {
-    
-
-}
 void game(){
-    vector <milestone> milestones;
-    readMilestones("textFiles/milestones.txt", milestones);
+    
     party mainParty;
     initParty(mainParty);
     initStartDate(mainParty);
     store mainStore;
     mainStore.run(mainParty.getMoney(), mainParty);
     while (mainParty.isOver() == true) {
-        turn();
+        turn(mainParty);
     }
     // Score stuff goes here
+
+}
+
+int main() {
+    game();
 
 }
