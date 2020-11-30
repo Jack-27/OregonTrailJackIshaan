@@ -5,9 +5,12 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+<<<<<<< Updated upstream
 #include <math.h>
 #include <ctime>
 #include <vector>
+=======
+>>>>>>> Stashed changes
 using namespace std;
 
 void turn() {
@@ -185,6 +188,7 @@ void raiders()
 
 
 void misfortune() {
+<<<<<<< Updated upstream
     srand(time(0));
     int ran;  //chooses and executes a misfortune
     string sick;
@@ -335,10 +339,174 @@ void misfortune() {
         break;
     }
 
+=======
+    int ran = rand() % 10;  //chooses and executes a misfortune
+    string sick;
+    int i;
+    if(ran < 4)
+    {
+        cout << "No Misfortunes" << endl;
+    }
+    else
+    {
+        ran = rand() % 3;
+    
+        switch(ran)
+        {
+            case 0:
+                if()//need to select random person thats alive
+                {
+
+                } 
+                ran = rand() % 6;
+                switch(ran)
+                {
+                    case 0:
+                    cout << "OH NO! " << << "HAS THE TYPHOID" << endl;
+                    sick = "TYPHOID";
+                    break;
+
+                    case 1:
+                    cout << "OH NO! " << << "HAS THE CHOLERA" << endl;
+                    sick = "CHOLERA";
+                    break;
+
+                    case 2:
+                    cout << "OH NO! " << << "HAS THE THE DIARRHEA" << endl;
+                    sick = "DIARRHEA";
+                    break;
+
+                    case 3:
+                    cout << "OH NO! " << << "HAS THE THE MEASLES" << endl;
+                    sick = "THE MEASLES";
+                    break;
+
+                    case 4:
+                    cout << "OH NO! " << << "HAS THE THE DYSENTERY" << endl;
+                    sick = "DYSENTARY";
+                    break;
+
+                    case 5:
+                    cout << "OH NO! " << << "HAS THE THE FEVER" << endl;
+                    sick = "THE FEVER";
+                    break;   
+                }
+                if(storage::getMedKits() > 0)
+                {
+                    ran = rand() % 2;
+                    if(ran = 0)
+                    {
+                        cout << << " DIED OF " << sick << endl;
+                        party::killChar(x);
+                    }
+                    else
+                    {
+                        cout << << "HAS SURVIVED " << sick << endl;
+                    }
+                    cout << "MEDKIT SUPPLY -1." << endl;
+                    storage::addMedKits(-1);
+                }
+                else
+                {
+                    cout << "WOULD YOU LIKE TO REST(1) IN AN ATTEMPT TO HEAL " << << " , OR PRESS ON(2)?" << endl;
+                    cin >> i;
+
+                    if(i == 1)
+                    {
+                        ran = rand() % 10;
+                        if(ran > 2)
+                        {
+                            cout << << "HAS SURVIVED " << sick << endl;
+                        }
+                        else
+                        {
+                        cout << << " DIED OF " << sick << endl;
+                        party::killChar(x);
+                        }
+                    }
+                    else
+                    {
+                        ran = rand() % 10;
+                        if(ran > 2)
+                        {
+                            cout << << " DIED OF " << sick << endl;
+                            party::killChar(x);
+                        }
+                        else
+                        {
+                        cout << << "HAS SURVIVED " << sick << endl;
+                        }
+                    }
+                    
+                    
+                }
+                if(party::characters[0].isAlive() == false) //leader dies game ends
+                {
+                    cout << "THE LEADER OF THE PARTY HAS DIED."
+                    party::endGame();
+                }
+            break;
+
+            case 1:
+            storage::addOxen(-1);
+
+            cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE " << storage::getOxen() << " LEFT." << endl;
+
+            if(storage::getOxen() < 1)
+            {
+                cout << "YOU ARE UNABLE TO CONTINUE DUE TO LOOSING ALL YOUR OXEN."
+                party::endGame();
+            }
+            else
+            {
+                cout << "YOU ARE STILL ABLE TO CONTINUE AND PARTS OF THE OXEN ARE ABLE TO BE HARVEST FOR FOOD." << endl;
+                storage::addFood(100);
+            }
+            
+            break;
+
+            case 2:
+            string part;
+            ran = rand() % 3;
+            if(ran = 0)
+            {
+                part = "WHEELS";
+            }
+            if(ran = 1)
+            {
+                part = "AXLES";
+            }
+            if(ran = 2)
+            {
+                part = "TONGUES";
+            }
+            
+            cout << "OH NO! ONE OF YOUR " << part << " IS BROKEN!" << endl;
+
+            if(storage::getWagonParts > 0)
+            {
+                cout << "YOU USE ONE OF YOUR SPARE WAGON PARTS TO FIX THE BREAK." << endl;
+                storage::addWagonParts(-1);
+            }
+            else
+            {
+                cout << "DUE TO YOUR BROKEN WAGON, YOU ARE UNABLE TO CONTINUE ON YOUR TREK ACROSS THE U.S.!" << endl;
+                party::endGame();
+            }
+            break;
+        }
+
+    }
+    
+    
+>>>>>>> Stashed changes
 }
 
 void fortune() {
+<<<<<<< Updated upstream
     srand(time(0));
+=======
+>>>>>>> Stashed changes
     int ran = rand() % 5;
 
     if(ran == 0)
