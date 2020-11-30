@@ -16,7 +16,7 @@ using namespace std;
 void initStartDate(party main) {
     string choice;
     bool chose = true;
-    cout << "YOU ARE PLANNED TO SET OUT ON 03/28/1847, WOULD YOU LIKE TO CHANGE THIS?" << endl << "Y / N: ";
+    cout << "You are planned to set out on 03/28/1847, would you like to change this?" << endl << "Y / N: ";
     while (chose) {
         cin >> choice;
         cout << endl;
@@ -94,8 +94,8 @@ void statusUpdate(party main) {
     int choice;
     cout << main.getDate() << endl;    // this is where the status update will be printed
     cout << endl;
-    cout << "TOTAL MILEAGE IS " << main.getMiles() << endl;
-    cout << "FOOD       BULLETS       OXEN       WAGON PARTS       MEDKIT       CASH" << endl;
+    cout << "Total mileage is: " << main.getMiles() << endl;
+    cout << "Food       Bullets       Oxen       Wagon Parts       Medkits       Cash" << endl;
     cout << main.items.getFood() << "          " << main.items.getBullets() << "            " << main.items.getOxen() << "             " << main.items.getWagonParts() << "              " << main.items.getMedKits() << "          " << main.getMoney() << endl; 
 }
 
@@ -130,21 +130,22 @@ void computeDistanceTraveled(int distance, party main) {
         ran = rand() % 14;
         newdistance = 84 - ran;
     }
-    cout << "YOU HAVE TRAVELED " << newdistance + distance << "MILES!" << endl;
+    cout << "You have traveled: " << newdistance + distance << "miles!" << endl;
     main.addMiles(newdistance);
 }
 
 int randomAlive(party main)
 {
-    srand(time(0));
+    
     int i = 0;
     int ran;
     while(i < 5)
     {
+        srand(time(0));
         ran = rand() % 5;
-        if(main.checkChar(i) == true && i == ran)
+        if(main.checkChar(ran) == true)
         {
-            return i;
+            return ran;
         }
         i++;
 
@@ -170,174 +171,199 @@ void hunting(party main)
     int i = 0;
     int alive;
     int consumed;
-    cout << "YOU HAVE DECIDED TO GO HUNTING!" << endl;
+    cout << "You have decided to go hunting!" << endl;
 
     ran = rand() % 2;
 
     if(ran == 0)
     {
-        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A RABBIT! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cout << "You got lucky and have encounterd a rabbit! Do you want to hunt: Yes(1) or No(2)?" << endl;
         cin >> choice;
-        if(main.items.getBullets() > 10)
+        if(main.items.getBullets() >= 10 && choice == 1)
         {
-            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            cout << "You must solve a puzzle in order to be successful in the hunt!" << endl;
             srand(time(0));
             ran = rand() % 10;
 
-            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+            cout << "You have three tries to Guess a number 0-9!" << endl;
 
             while((choice != ran) && (i < 3))
             {
-                cout << "GUESS #" << i + 1 << "!" << endl;
+                cout << "Guess #" << i + 1 << "!" << endl;
                 cin >> choice;
                 i++;
             }
             if(choice == ran)
             {
-                cout << "YOU HAVE SUCCESSFULLY KILLED A RABBIT! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 5LBS BUT USED 10 BULLETS!" << endl;
+                cout << "You have successfully killed a rabbit! You have increased your meat supply by 5lbs but used 10 bullets!" << endl;
                 main.items.addFood(5);
                 main.items.addBullets(-10);
             }
+            else
+            {
+                cout << "Unfortunately you have not guess the correct number! The rabbit escapes." << endl;
+            }
+            
         }
-        else
+        else if(main.items.getBullets() < 10 && choice == 1)
         {
-            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+            cout << "You had an insufficient number of bullets to be successful in the hunt." << endl;
         }
+        else if(choice == 2)
+        {
+            cout << "You have decided to not go after the rabbit." << endl;
+        }
+        
     }
     srand(time(0));
     ran = rand() % 4;
-
+    i = 0;
     if(ran == 0)
     {
-        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A FOX! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cout << "You got lucky and have encountered a fox! Do you want to hunt: Yes(1) or No(2)?" << endl;
         cin >> choice;
-        if(main.items.getBullets() > 10)
+        if(main.items.getBullets() >= 10 && choice == 1)
         {
-            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            cout << "You must solve a puzzle in order to be successful in the hunt!" << endl;
             srand(time(0));
             ran = rand() % 10;
 
-            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+            cout << "You have three tries to Guess a number 0-9!" << endl;
 
             while((choice != ran) && (i < 3))
             {
-                cout << "GUESS #" << i + 1 << "!" << endl;
+                cout << "Guess #" << i + 1 << "!" << endl;
                 cin >> choice;
                 i++;
             }
             if(choice == ran)
             {
-                cout << "YOU HAVE SUCCESSFULLY KILLED A FOX! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 10LBS BUT USED 8 BULLETS!" << endl;
+                cout << "You have successfully killed a fox! You have increased your meat supply by 10lbs but used 8 bullets!" << endl;
                 main.items.addFood(10);
                 main.items.addBullets(-8);
             }
         }
-        else
+        else if(choice == 1 && main.items.getBullets() < 10)
         {
-            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+            cout << "You had an insufficient number of bullets to be successful in the hunt." << endl;
+        }
+        else if(choice == 2)
+        {
+            cout << "You have decided to not go after the fox." << endl;
         }
     }
     srand(time(0));
     ran = rand() % 100;
-
+    i = 0;
     if(ran < 15)
     {
-        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A DEER! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cout << "You got lucky and have encounterd a deer! Do you want to hunt: yes(1) or no(2)?" << endl;
         cin >> choice;
-        if(main.items.getBullets() > 10)
+        if(main.items.getBullets() >= 10 && choice == 1)
         {
-            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            cout << "You must solve a puzzle in order to be successful in the hunt!" << endl;
             srand(time(0));
             ran = rand() % 10;
 
-            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+            cout << "You have three tries to Guess a number 0-9!" << endl;
 
             while((choice != ran) && (i < 3))
             {
-                cout << "GUESS #" << i + 1 << "!" << endl;
+                cout << "Guess #" << i + 1 << "!" << endl;
                 cin >> choice;
                 i++;
             }
             if(choice == ran)
             {
-                cout << "YOU HAVE SUCCESSFULLY KILLED A DEER! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 60LBS BUT USED 5 BULLETS!" << endl;
+                cout << "You have successfully killed a deer! You have increased your meat supply by 60lbs but used 5 bullets!" << endl;
                 main.items.addFood(60);
                 main.items.addBullets(-5);
             }
         }
-        else
+        else if(choice == 1 && main.items.getBullets() < 10)
         {
-            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+            cout << "You had an insufficient number of bullets to be successful in the hunt." << endl;
+        }
+        else if(choice == 2)
+        {
+            cout << "You have decided to not go after the deer." << endl;
         }
     }
     srand(time(0));
     ran = rand() % 100;
-
+    i = 0;
     if(ran < 7)
     {
-        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A BEAR! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cout << "You got lucky and have encounterd a bear! Do you want to hunt: yes(1) or no(2)?" << endl;
         cin >> choice;
-        if(main.items.getBullets() > 10)
+        if(main.items.getBullets() >= 10 && choice == 1)
         {
-            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            cout << "You must solve a puzzle in order to be successful in the hunt!" << endl;
             srand(time(0));
             ran = rand() % 10;
 
-            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+            cout << "You have three tries to Guess a number 0-9!" << endl;
 
             while((choice != ran) && (i < 3))
             {
-                cout << "GUESS #" << i + 1 << "!" << endl;
+                cout << "Guess #" << i + 1 << "!" << endl;
                 cin >> choice;
                 i++;
             }
             if(choice == ran)
             {
-                cout << "YOU HAVE SUCCESSFULLY KILLED A BEAR! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 200LBS BUT USED 10 BULLETS!" << endl;
+                cout << "You have successfully killed a bear! You have increased your meat supply by 200lbs but used 10 bullets!" << endl;
                 main.items.addFood(200);
                 main.items.addBullets(-10);
             }
         }
-        else
+        else if(choice == 1 && main.items.getBullets() < 10)
         {
-            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+            cout << "You had an insufficient number of bullets to be successful in the hunt." << endl;
+        }
+        else if(choice == 2)
+        {
+            cout << "You have decided to not go after the bear." << endl;
         }
     }
-        
     srand(time(0));
     ran = rand() % 20;
-
+    i = 0;
     if(ran == 0)
     {
-        cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A MOOSE! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
+        cout << "You got lucky and have encountered a moose! Do you want to hunt: yes(1) or no(2)?" << endl;
         cin >> choice;
-        if(main.items.getBullets() > 10)
+        if(main.items.getBullets() >= 10 && choice == 1)
         {
-            cout << "YOU MUST SOLVE A PUZZLE IN ORDER TO BE SUCCESSFULL IN THE HUNT!" << endl;
+            cout << "You must solve a puzzle in order to be successful in the hunt!" << endl;
             srand(time(0));
             ran = rand() % 10;
 
-            cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+            cout << "You have three tries to Guess a number 0-9!" << endl;
 
             while((choice != ran) && (i < 3))
             {
-                cout << "GUESS #" << i + 1 << "!" << endl;
+                cout << "Guess #" << i + 1 << "!" << endl;
                 cin >> choice;
                 i++;
             }
             if(choice == ran)
             {
-                cout << "YOU HAVE SUCCESSFULLY KILLED A MOOSE! YOU HAVE INCREASED YOUR MEAT SUPPLY BY 500LBS BUT USED 12 BULLETS!" << endl;
+                cout << "You have successfully killed a moose! You have increased your meat supply by 500lbs but used 12 bullets!" << endl;
                 main.items.addFood(500);
                 main.items.addBullets(-12);
             }
         }
-        else
+        else if(choice == 1 && main.items.getBullets() < 10)
         {
-            cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
+            cout << "You had an insufficient number of bullets to be successful in the hunt." << endl;
+        }
+        else if(choice == 2)
+        {
+            cout << "You have decided to not go after the moose." << endl;
         }
     }
-    cout << "HOW WELL WOULD YOU LIKE TO FEED EVERYONE?\nPOORLY(1): 2LBS OF FOOD, PER PERSON.\nMODERATELY(2): 3LBS OF FOOD, PER PERSON. \n WELL(3): 5 LBS OF FOOD, PER PERSON." << endl;
+    cout << "How well would you like to feed everyone?\nPoorly(1): 2lbs of food, per person.\nModerately(2): 3lbs of food, per person. \nWell(3): 5 lbs of food, per person." << endl;
     cin >> choice;
 
     alive = main.numCharAlive();
@@ -359,7 +385,8 @@ void hunting(party main)
 
     if(main.items.getFood() > 1000)
     {
-        cout << "THE WAGON IS ONLY ABLE TO CARRY 1000 POUNDS...YOU HAD TO LEAVE THE EXTRA MEAT BEHIND!" << endl;
+        cout << "The wagon is only able to carry 1000 pounds...You had to leave the extra meat behind!" << endl;
+        main.items.setFood(1000);
     }
 }
 
@@ -370,45 +397,45 @@ void raiders(party main)
     int choice;
     int i = 0;
     int loss;
-    cout << "RAIDERS AHDEAD! THEY LOOK HOSTILE!" << endl;
+    cout << "Raiders ahead! They look hostile!" << endl;
     while(choice > 3 && choice < 1)
     {
-        cout << "WOULD YOU LIKE TO RUN(1), ATTACK(2), OR SURRENDER(3)?" << endl;
+        cout << "Would you like to run(1), attack(2), or surrender(3)?" << endl;
         cin >> choice;
     }
 
     switch(choice)
     {
         case 1:
-        cout << "YOU MANAGED TO ESCAPE, BUT IN YOUR HURRY TO FLEE YOU HAVE LOST 1 OX, 10LBS OF FOOD, AND 1 WAGON PART!" << endl;
+        cout << "You managed to escape, but in your hurry to flee you have lost 1 ox, 10lbs of food, and 1 wagon part!" << endl;
         main.items.addOxen(-1);
         main.items.addFood(-10);
         main.items.addWagonParts(-1);
         break;
 
         case 2:
-        cout << "YOU HAVE DECIDED TO FIGHT!" << endl;
-        cout << "YOU MUST COMPLETE A PUZZLE IN ORDER TO WIN!" << endl;
+        cout << "You have decided to fight!" << endl;
+        cout << "You must complete a puzzle in order to win!" << endl;
 
         ran = rand() % 10;
 
-        cout << "YOU HAVE THREE TRIES TO GUESS A NUMBER 0-9!" << endl;
+        cout << "You have three tries to guess a number 0-9!" << endl;
 
         while((choice != ran) && (i < 3))
         {
-            cout << "GUESS #" << i + 1 << "!" << endl;
+            cout << "Guess #" << i + 1 << "!" << endl;
             cin >> choice;
             i++;
         }
         if(choice == ran)
         {
-            cout << "YOU HAVE GUESS THE CORRECT NUMBER! YOU HAVE SCARED AWAY THE RAIDERS AND AS THEY WERE RUNNING, THEY DROPPED 50LBS OF FOOD AND 50 BULLETS!" << endl;
+            cout << "You have guessed the correct number! You have scared away the raiders and as they were running, they dropped 50lbs of food and 50 bullets!" << endl;
             main.items.addBullets(50);
             main.items.addBullets(50);
         }
         if(choice != ran)
         {
-            cout << "YOU HAVE LOST THE BATTLE AND MUST FLEE! 50 BULLESTS WERE USED DURING THE BATTLE! AS YOU'RE FLEEING YOU DROP A QUARTER OF YOUR CASH SUPPLY!" << endl;
+            cout << "You have lost the battle and must flee! 50 bullets were used during the battle! As you're fleeing you drop a quarter of your cash supply!" << endl;
             loss = main.getMoney();
             loss = loss / 4;
             main.addMoney(-loss);
@@ -417,7 +444,7 @@ void raiders(party main)
         break;
 
         case 3:
-        cout << "YOU HAVE CHOSEN TO SURRENDER AND THE RAIDERS TAKE A QUARTER OF YOUR CASH SUPPLY!" << endl;
+        cout << "You have chosen to surrender and the raiders take a quarter of your cash supply!" << endl;
         main.addMoney(-loss);
         break;
     }
@@ -440,33 +467,33 @@ void misfortune(party main) {
             switch(ran)
             {
                 case 0:
-                cout << "OH NO! " << name << "HAS THE TYPHOID" << endl;
-                sick = "TYPHOID";
+                cout << "Oh no! " << name << "has Typhoid" << endl;
+                sick = "Typhoid.";
                 break;
 
                 case 1:
-                cout << "OH NO! " << name << "HAS THE CHOLERA" << endl;
-                sick = "CHOLERA";
+                cout << "Oh no! " << name << "has Cholera" << endl;
+                sick = "Cholera.";
                 break;
 
                 case 2:
-                cout << "OH NO! " << name << "HAS THE THE DIARRHEA" << endl;
-                sick = "DIARRHEA";
+                cout << "Oh no! " << name << "has Diarrhea" << endl;
+                sick = "Diarrhea.";
                 break;
 
                 case 3:
-                cout << "OH NO! " << name << "HAS THE THE MEASLES" << endl;
-                sick = "THE MEASLES";
+                cout << "Oh no! " << name << "has the Measels" << endl;
+                sick = "the Measels.";
                 break;
 
                 case 4:
-                cout << "OH NO! " << name << "HAS THE THE DYSENTERY" << endl;
-                sick = "DYSENTARY";
+                cout << "Oh no! " << name << "has Dysentery" << endl;
+                sick = "Dysentery.";
                 break;
 
                 case 5:
-                cout << "OH NO! " << name << "HAS THE THE FEVER" << endl;
-                sick = "THE FEVER";
+                cout << "Oh no! " << name << "has the Fever" << endl;
+                sick = "the Fever.";
                 break;   
             }
             if(main.items.getMedKits() > 0)
@@ -475,19 +502,19 @@ void misfortune(party main) {
                 ran = rand() % 2;
                 if(ran == 0)
                 {
-                    cout << name << " DIED OF " << sick << endl;
+                    cout << name << " died of " << sick << endl;
                     main.killChar(i);
                 }
                 else
                 {
-                    cout << name << "HAS SURVIVED " << sick << endl;
+                    cout << name << "has survived " << sick << endl;
                 }
                 cout << "MEDKIT SUPPLY -1." << endl;
                 main.items.addMedKits(-1);
             }
             else
             {
-                cout << "WOULD YOU LIKE TO REST(1) IN AN ATTEMPT TO HEAL " << name << " , OR PRESS ON(2)?" << endl;
+                cout << "Would you like to rest(1) in an attempt to heal " << name << ", or press on(2)?" << endl;
                 cin >> i;
 
                 if(i == 1)
@@ -496,11 +523,11 @@ void misfortune(party main) {
                     ran = rand() % 10;
                     if(ran > 2)
                     {
-                        cout << name << "HAS SURVIVED " << sick << endl;
+                        cout << name << "has survived " << sick << endl;
                     }
                     else
                     {
-                    cout << name << " DIED OF " << sick << endl;
+                    cout << name << " died of " << sick << endl;
                     main.killChar(i);
                     }
                 }
@@ -510,12 +537,12 @@ void misfortune(party main) {
                     ran = rand() % 10;
                     if(ran > 2)
                     {
-                        cout << name << " DIED OF " << sick << endl;
+                        cout << name << " died of " << sick << endl;
                         main.killChar(i);
                     }
                     else
                     {
-                    cout << name << "HAS SURVIVED " << sick << endl;
+                    cout << name << "has survived " << sick << endl;
                     }
                 }
                 
@@ -523,7 +550,7 @@ void misfortune(party main) {
             }
             if(main.characters[0].isAlive() == false) //leader dies game ends
             {
-                cout << "THE LEADER OF THE PARTY HAS DIED." << endl;
+                cout << "The leader of the party has died." << endl;
                 main.endGame();
             }
         break;
@@ -531,16 +558,16 @@ void misfortune(party main) {
         case 1:
             main.items.addOxen(-1);
 
-            cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE " << main.items.getOxen() << " LEFT." << endl;
+            cout << "Oh no! One of the oxen has died! You have " << main.items.getOxen() << " left." << endl;
 
             if(main.items.getOxen() < 1)
             {
-                cout << "YOU ARE UNABLE TO CONTINUE DUE TO LOOSING ALL YOUR OXEN.";
+                cout << "You are unable to continue due to loosing all your oxen.";
                 main.endGame();
             }
             else
             {
-                cout << "YOU ARE STILL ABLE TO CONTINUE AND PARTS OF THE OXEN ARE ABLE TO BE HARVEST FOR FOOD." << endl;
+                cout << "You are still able to continue and parts of the oxen are able to be harvest for food." << endl;
                 main.items.addFood(100);
             }
         
@@ -552,27 +579,27 @@ void misfortune(party main) {
         ran = rand() % 3;
         if(ran == 0)
         {
-            part = "WHEELS";
+            part = "Wheels";
         }
         if(ran == 1)
         {
-            part = "AXLES";
+            part = "Axles";
         }
         if(ran == 2)
         {
-            part = "TONGUES";
+            part = "Tongues";
         }
         
-        cout << "OH NO! ONE OF YOUR " << part << " IS BROKEN!" << endl;
+        cout << "Oh no! One of your " << part << " is broken!" << endl;
 
         if(main.items.getWagonParts() > 0)
         {
-            cout << "YOU USE ONE OF YOUR SPARE WAGON PARTS TO FIX THE BREAK." << endl;
+            cout << "You use one of your spare wagon parts to fix the break." << endl;
             main.items.addWagonParts(-1);
         }
         else
         {
-            cout << "DUE TO YOUR BROKEN WAGON, YOU ARE UNABLE TO CONTINUE ON YOUR TREK ACROSS THE U.S.!" << endl;
+            cout << "Due to your broken wagon, you are unable to continue on your trek across the U.S.!" << endl;
             main.endGame();
         }
         break;
@@ -590,26 +617,26 @@ void fortune(party main) {
         {
             if (ran < 4)
             {
-                cout << "WHILE GOING TO THE BATHROOM YOU NOTICE THE CORNER OF A CHEST STICKING OUT OF THE DIRT." << endl;
-                cout << "YOU DIG IT UP AND FIND $300 AND A BAG OF 25 BULLETS!" << endl;
+                cout << "While going to the bathroom you notice the corner of a chest sticking out of the dirt." << endl;
+                cout << "You dig it up and find $300 and a bag of 25 bullets!" << endl;
                 main.items.addBullets(10);
                 main.addMoney(100);
             }
             if (ran > 3 && ran < 7)
             {
-                cout << "YOU CAME ACROSS AN ABANDONED WAGON WITH 20 POUNDS OF BEANS AND 10 POUNDS OF DRIED FRUIT. " << endl;
+                cout << "You came across an abandoned wagon with 20 pounds of beans and 10 pounds of dried fruit. " << endl;
                 main.items.addFood(30);
             }
             if(ran > 6 && ran < 9)
             {
-                cout << "YOU MEET A NATIVE AMERICAN TRIBE AND THEY GIFT YOU 1 WAGON PART, 100 POUNDS OF FOOD, AND $300 WORTH OF SUPPLIES THAT YOU WILL TRADE FOR MONEY WHEN PASSING THE NEXT FORT." << endl;
+                cout << "You meet a Native American tribe and they gift you 1 wagon part, 100 pounds of food, and $300 worth of supplies that you will trade for money when passing the next fort." << endl;
                 main.items.addWagonParts(1);
                 main.items.addFood(100);
                 main.addMoney(300);
             }
             else
             {
-                cout << "YOU SPOT SOMETHING SHINING A FEW HUNDRED YARDS OFF THE TAIL...\nUPON CLOSER INSPECTION YOU REALIZE IT ISN'T FROM OUR WORLD. ITS A ALIEN SPACE CRAFT! \nYOU ENTER THE SPACE CRAFT AND THERE ARE INSTRUCTIONS DETAILING HOW TO FLY THE AIRCRAFT. YOU NO LONGER CARE ABOUT YOUR JOURNY AND FLY WHERE EVER YOU WANT." << endl;
+                cout << "You spot something shining a few hundred yards off the tail...\nupon closer inspection you realize it isn't from our world. Its a alien space craft! \nyou enter the space craft and there are instructions detailing how to fly the aircraft. You no longer care about your journey and fly where ever you want." << endl;
                 main.endGame();
             }
             
