@@ -5,12 +5,9 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-<<<<<<< Updated upstream
 #include <math.h>
 #include <ctime>
 #include <vector>
-=======
->>>>>>> Stashed changes
 using namespace std;
 
 void turn() {
@@ -188,7 +185,6 @@ void raiders()
 
 
 void misfortune() {
-<<<<<<< Updated upstream
     srand(time(0));
     int ran;  //chooses and executes a misfortune
     string sick;
@@ -339,7 +335,6 @@ void misfortune() {
         break;
     }
 
-=======
     int ran = rand() % 10;  //chooses and executes a misfortune
     string sick;
     int i;
@@ -499,14 +494,10 @@ void misfortune() {
     }
     
     
->>>>>>> Stashed changes
 }
 
 void fortune() {
-<<<<<<< Updated upstream
     srand(time(0));
-=======
->>>>>>> Stashed changes
     int ran = rand() % 5;
 
     if(ran == 0)
