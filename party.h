@@ -7,7 +7,6 @@
 class party {
 
     private:
-        people characters[5];
         int miles;
         int day;
         int month;
@@ -15,6 +14,7 @@ class party {
         bool over;
         
     public:
+        people characters[5];
         storage items;
         double getMoney() {
             return money;
