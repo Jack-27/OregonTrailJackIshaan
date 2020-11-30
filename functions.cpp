@@ -70,6 +70,7 @@ void computeDistanceTraveled(int distance) {
         newdistance = 84 - ran;
     }
     cout << "YOU HAVE TRAVELED " << newdistance + distance << "MILES!" << endl;
+    party::addMiles(newdistance);
 }
 int randomAlive()
 {
