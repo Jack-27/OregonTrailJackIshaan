@@ -12,7 +12,7 @@ class store {
         int option;
         bool oxenBought;
     public:
-        int run(int money) {
+        int run(double money) {
             if (timesVisited == 0) {
                 readFile("store_info.txt");
                 oxenBought == 0;
@@ -49,7 +49,24 @@ class store {
         
         //each of these functions will print what buying them does, let the player buy them, and return a double to be added to the bill
         double oxen() {
-
+            int choice;
+            double price = 40 * (1 + .25 * timesVisited);
+            if (timesVisited == 0) {
+                cout << "You buy oxen in pairs, you must buy 3-5 pairs of oxen if its your first time." << endl;
+            } else {
+                cout << "You buy oxen in pairs, more than 5 pairs seems to help less and less though." << endl;
+            }
+            cout << "The price per pair of Oxen is " << price << ", how many would you like?" << endl;
+            cin >> choice;
+            if (choice < 2 || choice > 5 && timesVisited == 0) {
+                cout << "You must buy 3-5 pairs of oxen" << endl;
+                return oxen();
+            } 
+            if (choice >= 1) {
+                return choice * price;
+            }
+            
+            
         }
         double food() {
 
@@ -60,6 +77,7 @@ class store {
         double miscItems() {
 
         }
+        
  
 };
 
