@@ -607,7 +607,7 @@ void raiders()
 {
     srand(time(0));
     int ran;
-    int choice;
+    int choice = 0;
     int i = 0;
     int loss;
     cout << "RAIDERS AHDEAD! THEY LOOK HOSTILE!" << endl;
@@ -620,11 +620,11 @@ void raiders()
     switch(choice)
     {
         case 1:
-        cout << "YOU MANAGED TO ESCAPE, BUT IN YOUR HURRY TO FLEE YOU HAVE LOST 1 OX, 10LBS OF FOOD, AND 1 WAGON PART!" << endl;
-        mainParty.items.addOxen(-1);
-        mainParty.items.addFood(-10);
-        mainParty.items.addWagonParts(-1);
-        break;
+            cout << "YOU MANAGED TO ESCAPE, BUT IN YOUR HURRY TO FLEE YOU HAVE LOST 1 OX, 10LBS OF FOOD, AND 1 WAGON PART!" << endl;
+            mainParty.items.addOxen(-1);
+            mainParty.items.addFood(-10);
+            mainParty.items.addWagonParts(-1);
+            break;
 
         case 2:
         cout << "YOU HAVE DECIDED TO FIGHT!" << endl;
@@ -657,9 +657,9 @@ void raiders()
         break;
 
         case 3:
-        cout << "YOU HAVE CHOSEN TO SURRENDER AND THE RAIDERS TAKE A QUARTER OF YOUR CASH SUPPLY!" << endl;
-        mainParty.addMoney(-loss);
-        break;
+            cout << "YOU HAVE CHOSEN TO SURRENDER AND THE RAIDERS TAKE A QUARTER OF YOUR CASH SUPPLY!" << endl;
+            mainParty.addMoney(-loss);
+            break;
     }
 }
 
@@ -978,8 +978,7 @@ void postGame() {
             exe = false;
             cout << "Enter three letter name for highscore: ";
             cin >> name;
-            fstream score;
-            score.open("textFiles/highscores.txt");
+            ofstream score("textFiles/highscores.txt", ios::app);
             score << name.substr(0, 3) << mainParty.getMiles() + mainParty.getMoney() * mainParty.numCharAlive();
             score.close();
         } else if (opt == "N" || opt == "n") {
