@@ -1,3 +1,5 @@
+// Ishann Wenger and Jack Franklin
+
 #include "storage.h"
 #include "store.h"
 #include "party.h"
@@ -918,9 +920,11 @@ void turn() {
                 store();
                 mainParty.storeVisits++;
             }
+            mainParty.mile = milestone();
         } else if (mainParty.mile.getType() == "river") {
             cout << "1. Cross river and continue on   2. Hunt   3. Rest   4. Quit" << endl;
             cin >> choice;
+            mainParty.mile = milestone();
         } else {
             cout << "1. Continue On   2. Hunt   3. Rest   4. Quit" << endl;
             cin >> choice;
