@@ -1,5 +1,6 @@
 #include "people.h"
 #include "storage.h"
+#include "milestone.h"
 #ifndef PARTY_H
 #define PARTY_H
 
@@ -12,10 +13,14 @@ class party {
         int month;
         double money;
         bool over;
+        bool mileston;
+        
         
     public:
+        milestone mile;
         people characters[5];
         storage items;
+        int storeVisits = 0;
         double getMoney() {
             return money;
         }
@@ -65,9 +70,29 @@ class party {
         void endGame() {
             over = true;
         }
+        void mileStone(milestone mil) {
+            mileston = true;
+            mile = mil;
+        }
+        void noMileStone() {
+            mileston = false;
+        }
+        bool checkMileStone() {
+            return mileston;
+        }
+        
         party() {
             over = false;
             money = 1600;
+        }
+        int peopleAlive() {
+            int count;
+            for (int i = 0; i < 5; i++){
+                if (characters[i].isAlive()){
+                    count++;
+                }
+            }
+            return count;
         }
         void addDays(int days) {
             for(int i = 0; i < days; i++) {
