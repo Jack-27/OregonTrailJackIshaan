@@ -98,6 +98,7 @@ class party {
             for(int i = 0; i < days; i++) {
                 if (day == daysInMonth(month)) {
                     month++;
+                    day = 0;
                 } else {
                     day++;
                 }

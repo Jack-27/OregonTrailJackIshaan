@@ -1,3 +1,5 @@
+// Ishann Wenger and Jack Franklin
+
 #include "storage.h"
 #include "store.h"
 #include "party.h"
@@ -607,7 +609,7 @@ void raiders()
 {
     srand(time(0));
     int ran;
-    int choice;
+    int choice = 0;
     int i = 0;
     int loss;
     bool check = false;
@@ -624,11 +626,11 @@ void raiders()
     switch(choice)
     {
         case 1:
-        cout << "YOU MANAGED TO ESCAPE, BUT IN YOUR HURRY TO FLEE YOU HAVE LOST 1 OX, 10LBS OF FOOD, AND 1 WAGON PART!" << endl;
-        mainParty.items.addOxen(-1);
-        mainParty.items.addFood(-10);
-        mainParty.items.addWagonParts(-1);
-        break;
+            cout << "YOU MANAGED TO ESCAPE, BUT IN YOUR HURRY TO FLEE YOU HAVE LOST 1 OX, 10LBS OF FOOD, AND 1 WAGON PART!" << endl;
+            mainParty.items.addOxen(-1);
+            mainParty.items.addFood(-10);
+            mainParty.items.addWagonParts(-1);
+            break;
 
         case 2:
         cout << "YOU HAVE DECIDED TO FIGHT!" << endl;
@@ -661,9 +663,9 @@ void raiders()
         break;
 
         case 3:
-        cout << "YOU HAVE CHOSEN TO SURRENDER AND THE RAIDERS TAKE A QUARTER OF YOUR CASH SUPPLY!" << endl;
-        mainParty.addMoney(-loss);
-        break;
+            cout << "YOU HAVE CHOSEN TO SURRENDER AND THE RAIDERS TAKE A QUARTER OF YOUR CASH SUPPLY!" << endl;
+            mainParty.addMoney(-loss);
+            break;
     }
 }
 
@@ -917,9 +919,11 @@ void turn() {
                 store();
                 mainParty.storeVisits++;
             }
+            mainParty.mile = milestone();
         } else if (mainParty.mile.getType() == "river") {
             cout << "1. Cross river and continue on   2. Hunt   3. Rest   4. Quit" << endl;
             cin >> choice;
+            mainParty.mile = milestone();
         } else {
             cout << "1. Continue On   2. Hunt   3. Rest   4. Quit" << endl;
             cin >> choice;
@@ -949,7 +953,7 @@ void turn() {
         if (choice == 1) {
             computeDistanceTraveled();
             mainParty.addDays(14);
-            mainParty.items.addFood(mainParty.numCharAlive() * -3 * -14);
+            mainParty.items.addFood(mainParty.numCharAlive() * -3 * 14);
         }
     }
 }
@@ -977,8 +981,7 @@ void postGame() {
             exe = false;
             cout << "Enter three letter name for highscore: ";
             cin >> name;
-            fstream score;
-            score.open("textFiles/highscores.txt");
+            ofstream score("textFiles/highscores.txt", ios::app);
             score << name.substr(0, 3) << mainParty.getMiles() + mainParty.getMoney() * mainParty.numCharAlive();
             score.close();
         } else if (opt == "N" || opt == "n") {
