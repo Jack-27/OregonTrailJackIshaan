@@ -447,7 +447,8 @@ void hunting()
     }
     srand(time(0));
     ran = rand() % 4;
-
+    i = 0;
+    choice = 0;
     if(ran == 0)
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A FOX! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
@@ -480,7 +481,8 @@ void hunting()
     }
     srand(time(0));
     ran = rand() % 100;
-
+    i = 0;
+    choice = 0;
     if(ran < 15)
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A DEER! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
@@ -513,7 +515,8 @@ void hunting()
     }
     srand(time(0));
     ran = rand() % 100;
-
+    i = 0;
+    choice = 0;
     if(ran < 7)
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A BEAR! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
@@ -547,7 +550,8 @@ void hunting()
         
     srand(time(0));
     ran = rand() % 20;
-
+    i = 0;
+    choice = 0;
     if(ran == 0)
     {
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A MOOSE! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
@@ -614,14 +618,9 @@ void raiders()
     int loss;
     bool check = false;
     cout << "RAIDERS AHDEAD! THEY LOOK HOSTILE!" << endl;
-    while(check = false)
-    {
+
         cout << "WOULD YOU LIKE TO RUN(1), ATTACK(2), OR SURRENDER(3)?" << endl;
         cin >> choice;
-
-    }
-       
-
 
     switch(choice)
     {
@@ -686,33 +685,33 @@ void misfortune() {
             switch(ran)
             {
                 case 0:
-                cout << "OH NO! " << name << "HAS THE TYPHOID" << endl;
-                sick = "TYPHOID";
+                cout << "Oh no! " << name << " has typhoid" << endl;
+                sick = "Typhoid";
                 break;
 
                 case 1:
-                cout << "OH NO! " << name << "HAS THE CHOLERA" << endl;
-                sick = "CHOLERA";
+                cout << "Oh no! " << name << " has Cholera" << endl;
+                sick = "Cholera";
                 break;
 
                 case 2:
-                cout << "OH NO! " << name << "HAS THE THE DIARRHEA" << endl;
-                sick = "DIARRHEA";
+                cout << "Oh no! " << name << " has diarrhea" << endl;
+                sick = "diarrhea";
                 break;
 
                 case 3:
-                cout << "OH NO! " << name << "HAS THE THE MEASLES" << endl;
-                sick = "THE MEASLES";
+                cout << "Oh no! " << name << " has the Measles" << endl;
+                sick = "The Measles";
                 break;
 
                 case 4:
-                cout << "OH NO! " << name << "HAS THE THE DYSENTERY" << endl;
-                sick = "DYSENTARY";
+                cout << "Oh no! " << name << " has dysentary" << endl;
+                sick = "dysentary";
                 break;
 
                 case 5:
-                cout << "OH NO! " << name << "HAS THE THE FEVER" << endl;
-                sick = "THE FEVER";
+                cout << "Oh no! " << name << " has the fever" << endl;
+                sick = "The Fever";
                 break;   
             }
             if(mainParty.items.getMedKits() > 0)
@@ -721,19 +720,19 @@ void misfortune() {
                 ran = rand() % 2;
                 if(ran == 0)
                 {
-                    cout << name << " DIED OF " << sick << endl;
+                    cout << name << " Died of " << sick << endl;
                     mainParty.killChar(i);
                 }
                 else
                 {
-                    cout << name << "HAS SURVIVED " << sick << endl;
+                    cout << name << " has survived " << sick << endl;
                 }
                 cout << "MEDKIT SUPPLY -1." << endl;
                 mainParty.items.addMedKits(-1);
             }
             else
             {
-                cout << "WOULD YOU LIKE TO REST(1) IN AN ATTEMPT TO HEAL " << name << " , OR PRESS ON(2)?" << endl;
+                cout << "Would you like to rest(1) in an attempt to heal " << name << " , or press on(2)?" << endl;
                 cin >> i;
 
                 if(i == 1)
@@ -742,11 +741,11 @@ void misfortune() {
                     ran = rand() % 10;
                     if(ran > 2)
                     {
-                        cout << name << "HAS SURVIVED " << sick << endl;
+                        cout << name << " has survived " << sick << endl;
                     }
                     else
                     {
-                    cout << name << " DIED OF " << sick << endl;
+                    cout << name << " died of " << sick << endl;
                     mainParty.killChar(i);
                     }
                 }
@@ -756,12 +755,12 @@ void misfortune() {
                     ran = rand() % 10;
                     if(ran > 2)
                     {
-                        cout << name << " DIED OF " << sick << endl;
+                        cout << name << " died of " << sick << endl;
                         mainParty.killChar(i);
                     }
                     else
                     {
-                    cout << name << "HAS SURVIVED " << sick << endl;
+                    cout << name << " has survived" << sick << endl;
                     }
                 }
                 
@@ -769,7 +768,7 @@ void misfortune() {
             }
             if(mainParty.characters[0].isAlive() == false) //leader dies game ends
             {
-                cout << "THE LEADER OF THE PARTY HAS DIED." << endl;
+                cout << "The leader of the party has died!" << endl;
                 mainParty.endGame();
             }
         break;
@@ -777,16 +776,16 @@ void misfortune() {
         case 1:
             mainParty.items.addOxen(-1);
 
-            cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE " << mainParty.items.getOxen() << " LEFT." << endl;
+            cout << "Oh no! One of the oxen has died! You have " << mainParty.items.getOxen() << " left." << endl;
 
             if(mainParty.items.getOxen() < 1)
             {
-                cout << "YOU ARE UNABLE TO CONTINUE DUE TO LOOSING ALL YOUR OXEN.";
+                cout << "You are unable to continue due to losing all your oxen.";
                 mainParty.endGame();
             }
             else
             {
-                cout << "YOU ARE STILL ABLE TO CONTINUE AND PARTS OF THE OXEN ARE ABLE TO BE HARVEST FOR FOOD." << endl;
+                cout << "You are still able to continue and parts of the oxen are harvested for food." << endl;
                 mainParty.items.addFood(100);
             }
         
@@ -798,27 +797,27 @@ void misfortune() {
         ran = rand() % 3;
         if(ran == 0)
         {
-            part = "WHEELS";
+            part = "Wheels";
         }
         if(ran == 1)
         {
-            part = "AXLES";
+            part = "Axles";
         }
         if(ran == 2)
         {
-            part = "TONGUES";
+            part = "Tongues";
         }
         
-        cout << "OH NO! ONE OF YOUR " << part << " IS BROKEN!" << endl;
+        cout << "Oh no! On of your " << part << " is broken!" << endl;
 
         if(mainParty.items.getWagonParts() > 0)
         {
-            cout << "YOU USE ONE OF YOUR SPARE WAGON PARTS TO FIX THE BREAK." << endl;
+            cout << "You have to use one of your spare wagon parts to fix the break.." << endl;
             mainParty.items.addWagonParts(-1);
         }
         else
         {
-            cout << "DUE TO YOUR BROKEN WAGON, YOU ARE UNABLE TO CONTINUE ON YOUR TREK ACROSS THE U.S.!" << endl;
+            cout << "Due to your broken wagon, you are unable to continue your trip across the U.S.!" << endl;
             mainParty.endGame();
         }
         break;
@@ -867,7 +866,7 @@ void fortune() {
 void eventCalc() {
     //runs through probabities of events launching 
     srand(time(0));         //chance of raiders
-    double ran;
+    double ran = 0;
     double prob;
     ran = rand() % 3;
     if(ran == 0)
