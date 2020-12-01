@@ -954,7 +954,7 @@ void turn() {
         if (choice == 1) {
             computeDistanceTraveled();
             mainParty.addDays(14);
-            mainParty.items.addFood(mainParty.numCharAlive() * -3 * -14);
+            mainParty.items.addFood(mainParty.numCharAlive() * -3 * 14);
         }
     }
 }
