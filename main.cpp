@@ -610,12 +610,16 @@ void raiders()
     int choice;
     int i = 0;
     int loss;
+    bool check = false;
     cout << "RAIDERS AHDEAD! THEY LOOK HOSTILE!" << endl;
-    while(choice > 3 && choice < 1)
+    while(check = false)
     {
         cout << "WOULD YOU LIKE TO RUN(1), ATTACK(2), OR SURRENDER(3)?" << endl;
         cin >> choice;
+
     }
+       
+
 
     switch(choice)
     {
@@ -644,7 +648,7 @@ void raiders()
         {
             cout << "YOU HAVE GUESS THE CORRECT NUMBER! YOU HAVE SCARED AWAY THE RAIDERS AND AS THEY WERE RUNNING, THEY DROPPED 50LBS OF FOOD AND 50 BULLETS!" << endl;
             mainParty.items.addBullets(50);
-            mainParty.items.addBullets(50);
+            mainParty.items.addFood(50);
         }
         if(choice != ran)
         {
@@ -830,26 +834,26 @@ void fortune() {
         {
             if (ran < 4)
             {
-                cout << "WHILE GOING TO THE BATHROOM YOU NOTICE THE CORNER OF A CHEST STICKING OUT OF THE DIRT." << endl;
-                cout << "YOU DIG IT UP AND FIND $300 AND A BAG OF 25 BULLETS!" << endl;
+                cout << "While going to the bathroom you notice the corner of a chest sticking out of the dirt." << endl;
+                cout << "You dig it up and find $300 and a bag of 25 bullets!" << endl;
                 mainParty.items.addBullets(10);
                 mainParty.addMoney(100);
             }
             if (ran > 3 && ran < 7)
             {
-                cout << "YOU CAME ACROSS AN ABANDONED WAGON WITH 20 POUNDS OF BEANS AND 10 POUNDS OF DRIED FRUIT. " << endl;
+                cout << "You came across an abandoned wagon with 20 pounds of beans and 10 pounds of dried fruit. " << endl;
                 mainParty.items.addFood(30);
             }
             if(ran > 6 && ran < 9)
             {
-                cout << "YOU MEET A NATIVE AMERICAN TRIBE AND THEY GIFT YOU 1 WAGON PART, 100 POUNDS OF FOOD, AND $300 WORTH OF SUPPLIES THAT YOU WILL TRADE FOR MONEY WHEN PASSING THE NEXT FORT." << endl;
+                cout << "You meet a Native American tribe and they gift you 1 wagon part, 100 pounds of food, and $300 worth of supplies that you will trade for money when passing the next fort." << endl;
                 mainParty.items.addWagonParts(1);
                 mainParty.items.addFood(100);
                 mainParty.addMoney(300);
             }
             else
             {
-                cout << "YOU SPOT SOMETHING SHINING A FEW HUNDRED YARDS OFF THE TAIL...\nUPON CLOSER INSPECTION YOU REALIZE IT ISN'T FROM OUR WORLD. ITS A ALIEN SPACE CRAFT! \nYOU ENTER THE SPACE CRAFT AND THERE ARE INSTRUCTIONS DETAILING HOW TO FLY THE AIRCRAFT. YOU NO LONGER CARE ABOUT YOUR JOURNY AND FLY WHERE EVER YOU WANT." << endl;
+                cout << "You spot something shining a few hundred yards off the tail...\nupon closer inspection you realize it isn't from our world. Its a alien space craft! \nyou enter the space craft and there are instructions detailing how to fly the aircraft. You no longer care about your journey and fly where ever you want." << endl;
                 mainParty.endGame();
             }
             
@@ -863,13 +867,8 @@ void eventCalc() {
     srand(time(0));         //chance of raiders
     double ran;
     double prob;
-    prob = pow(mainParty.getMiles() / 100 - 4,2) + 72;
-    prob = prob / pow(mainParty.getMiles() / 100 - 4, 2) + 12;
-    prob = prob - 1;
-    prob = prob / 0.10;
-    prob = 100 - prob;
-    ran = rand() % 100;
-    if(ran > prob)
+    ran = rand() % 3;
+    if(ran == 0)
     {
         raiders();
     }
