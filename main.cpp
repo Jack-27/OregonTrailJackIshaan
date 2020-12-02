@@ -411,12 +411,14 @@ void hunting()
     int i = 0;
     int alive;
     int consumed;
+    int k = 0;
     cout << "YOU HAVE DECIDED TO GO HUNTING!" << endl;
 
     ran = rand() % 2;
 
     if(ran == 0)
     {
+        k++;
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A RABBIT! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
         if(mainParty.items.getBullets() > 10)
@@ -439,6 +441,11 @@ void hunting()
                 mainParty.items.addFood(5);
                 mainParty.items.addBullets(-10);
             }
+            if(choice != ran)
+            {
+                cout << "You missed the rabbit and it escaped..." << endl;
+            }
+            
         }
         else
         {
@@ -451,6 +458,7 @@ void hunting()
     choice = 0;
     if(ran == 0)
     {
+        k++;
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A FOX! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
         if(mainParty.items.getBullets() > 10)
@@ -473,6 +481,10 @@ void hunting()
                 mainParty.items.addFood(10);
                 mainParty.items.addBullets(-8);
             }
+             if(choice != ran)
+            {
+                cout << "You missed the fox and it escaped..." << endl;
+            }
         }
         else
         {
@@ -485,6 +497,7 @@ void hunting()
     choice = 0;
     if(ran < 15)
     {
+        k++;
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A DEER! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
         if(mainParty.items.getBullets() > 10)
@@ -507,6 +520,10 @@ void hunting()
                 mainParty.items.addFood(60);
                 mainParty.items.addBullets(-5);
             }
+            if(choice != ran)
+            {
+                cout << "You missed the deer and it escaped..." << endl;
+            }
         }
         else
         {
@@ -519,6 +536,7 @@ void hunting()
     choice = 0;
     if(ran < 7)
     {
+        k++;
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A BEAR! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
         if(mainParty.items.getBullets() > 10)
@@ -541,6 +559,10 @@ void hunting()
                 mainParty.items.addFood(200);
                 mainParty.items.addBullets(-10);
             }
+            if(choice != ran)
+            {
+                cout << "You missed the bear and it escaped..." << endl;
+            }
         }
         else
         {
@@ -554,6 +576,7 @@ void hunting()
     choice = 0;
     if(ran == 0)
     {
+        k++;
         cout << "YOU GOT LUCKY AND HAVE ENCOUNTERD A MOOSE! DO YOU WANT TO HUNT: YES(1) OR NO(2)?" << endl;
         cin >> choice;
         if(mainParty.items.getBullets() > 10)
@@ -576,11 +599,19 @@ void hunting()
                 mainParty.items.addFood(500);
                 mainParty.items.addBullets(-12);
             }
+            if(choice != ran)
+            {
+                cout << "You missed the moose and it escaped..." << endl;
+            }
         }
         else
         {
             cout << "YOU HAD AN INSUFFICENT NUMBER OF BULLETS TO BE SUCCESSFUL IN THE HUNT." << endl;
         }
+    }
+    if(k == 0)
+    {
+        cout << "You didn't come across any animals..." << endl;
     }
     cout << "HOW WELL WOULD YOU LIKE TO FEED EVERYONE?\nPOORLY(1): 2LBS OF FOOD, PER PERSON.\nMODERATELY(2): 3LBS OF FOOD, PER PERSON. \n WELL(3): 5 LBS OF FOOD, PER PERSON." << endl;
     cin >> choice;
