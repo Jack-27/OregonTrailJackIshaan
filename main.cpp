@@ -758,7 +758,7 @@ void misfortune() {
                 {
                     cout << name << " has survived " << sick << endl;
                 }
-                cout << "MEDKIT SUPPLY -1." << endl;
+                cout << "Medkit Supply -1." << endl;
                 mainParty.items.addMedKits(-1);
             }
             else
