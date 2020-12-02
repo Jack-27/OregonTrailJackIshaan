@@ -72,7 +72,7 @@ void store() {
                     if (choice * 40 * priceModifier > money) {
                         cout << "Not enough money to buy this much." << endl;
                     } else {
-                        mainParty.items.addOxen(choice);
+                        mainParty.items.addOxen(choice * 2);
                         bill += choice * 40 * priceModifier;
                         cout << "The current bill is " << bill << "." << endl;
                         running = false;
@@ -334,10 +334,22 @@ bool milestoneCheck(int miles, int dist) {
     for (int i = 0; i < milestones.size(); i++) {
         if (milestones.at(i).getMile() > miles &&  milestones.at(i).getMile() < miles + dist) {
             mile = milestones.at(i);
-            cout << "You have arrived at " << mile.getName() << ". You have traveled " << mile.getMile() << " miles!" << endl;
-            mainParty.addMiles(mile.getMile() - miles);
-            mainParty.mileStone(mile);
-            return true;
+            int opt;
+            cout << "You are passing by " << mile.getName() << " you could still probably go " << miles + dist - mile.getMile() << " more miles. Stop or continue on?" << endl;
+            cout << "1. Stop   2. Continue" << endl;
+            cin >> opt;
+            while (opt <= 0 && opt >= 3) {
+                cin >> opt;
+            }
+            if (opt == 1) {
+                cout << "You have arrived at " << mile.getName() << ". You have traveled " << mile.getMile() - miles << " miles!" << endl;
+                mainParty.addMiles(mile.getMile() - miles);
+                mainParty.mileStone(mile);
+                return true;
+            }
+            if (opt == 2 ) {
+                return false;
+            }
         }
     }
     return false;
@@ -373,7 +385,7 @@ void computeDistanceTraveled() {
         newdistance = 84 - ran;
     }
     if (!milestoneCheck(distance, newdistance)) {
-        cout << "YOU HAVE TRAVELED " << newdistance + distance << "MILES!" << endl;
+        cout << "YOU HAVE TRAVELED " << newdistance << "MILES!" << endl;
         
         mainParty.addMiles(newdistance);
     }
@@ -919,13 +931,17 @@ void turn() {
                 mainParty.storeVisits++;
             }
             mainParty.mile = milestone();
+            mainParty.noMileStone();
         } else if (mainParty.mile.getType() == "river") {
             cout << "1. Cross river and continue on   2. Hunt   3. Rest   4. Quit" << endl;
             cin >> choice;
             mainParty.mile = milestone();
+            mainParty.noMileStone();
         } else {
             cout << "1. Continue On   2. Hunt   3. Rest   4. Quit" << endl;
             cin >> choice;
+            mainParty.noMileStone();
+            mainParty.mile = milestone();
         }
     } else {
         cout << "1. Continue On   2. Hunt   3. Rest   4. Quit" << endl;
